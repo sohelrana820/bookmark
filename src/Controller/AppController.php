@@ -81,7 +81,9 @@ class AppController extends Controller
         $this->set('title', $this->appsName);
         $this->set('appsName', $this->appsName);
         $this->set('loggedInUser', $this->loggedInUser);
-        $this->themeSwitcher();
+        $this->viewBuilder()
+            ->layout('application')
+            ->theme($this->currentTheme);
     }
 
     /**
@@ -97,23 +99,6 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
 
-        }
-    }
-
-    /**
-     *
-     */
-    public function themeSwitcher()
-    {
-        $this->viewBuilder()
-            ->layout('application')
-            ->theme($this->currentTheme);
-
-        if($this->userID && $this->Auth->user('role') == 2)
-        {
-            $this->viewBuilder()
-                ->layout('application')
-                ->theme('Public');
         }
     }
 

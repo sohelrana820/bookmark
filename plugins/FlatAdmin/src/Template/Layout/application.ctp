@@ -22,8 +22,16 @@
 
 <div class="app-container">
     <div class="row content-container">
-        <?php echo $this->element('header');?>
-        <?php echo $this->element('sidebar');?>
+        <?php
+        echo $this->element('header');
+        if($loggedInUser['role'] == 1)
+        {
+            echo $this->element('sidebar/admin');
+        }
+        else{
+            echo $this->element('sidebar/user');
+        }
+        ?>
         <!-- Main Content -->
         <div class="container-fluid">
             <div class="side-body padding-top">
