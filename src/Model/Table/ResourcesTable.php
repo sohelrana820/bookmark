@@ -49,7 +49,7 @@ class ResourcesTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
 
-        $validator
+        /*$validator
             ->requirePresence('uuid', 'create')
             ->notEmpty('uuid');
 
@@ -70,7 +70,7 @@ class ResourcesTable extends Table
             ->notEmpty('image');
 
         $validator
-            ->allowEmpty('content');
+            ->allowEmpty('content');*/
 
         return $validator;
     }

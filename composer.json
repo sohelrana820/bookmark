@@ -9,7 +9,9 @@
         "cakephp/cakephp": "3.1.*-dev",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
-        "cakephp/plugin-installer": "*"
+        "cakephp/plugin-installer": "*",
+        "symfony/dom-crawler": "^2.7",
+        "symfony/css-selector": "^2.7"
     },
     "require-dev": {
         "psy/psysh": "@stable",

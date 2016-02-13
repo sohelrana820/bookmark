@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Symfony\Component\DomCrawler\Crawler;
+use Cake\Utility\Text;
 
 /**
  * Resources Controller
@@ -48,19 +50,21 @@ class ResourcesController extends AppController
      */
     public function add()
     {
-        $resource = $this->Resources->newEntity();
+        $this->autoRender = false;
+
         if ($this->request->is('post')) {
-            $resource = $this->Resources->patchEntity($resource, $this->request->data);
+            $data = (array)json_decode(file_get_contents("php://input"));
+            $data['uuid'] = Text::uuid();
+            $data['user_id'] = $this->userID;
+            $resource = $this->Resources->newEntity($data);
+
             if ($this->Resources->save($resource)) {
-                $this->Flash->success(__('The resource has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                echo json_encode(1);
             } else {
-                $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+                echo json_encode(0);
             }
+
         }
-        $users = $this->Resources->Users->find('list', ['limit' => 200]);
-        $this->set(compact('resource', 'users'));
-        $this->set('_serialize', ['resource']);
     }
 
     /**
@@ -75,6 +79,7 @@ class ResourcesController extends AppController
         $resource = $this->Resources->get($id, [
             'contain' => []
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $resource = $this->Resources->patchEntity($resource, $this->request->data);
             if ($this->Resources->save($resource)) {
@@ -107,4 +112,49 @@ class ResourcesController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function getRerouces()
+    {
+        $this->autoRender = false;
+        $url = $_GET['url'];
+        $parse = parse_url(str_replace('www.', '', $url));
+        $domain = $parse['host'];
+        if(isset($parse['scheme'])){
+            $domain = $parse['scheme'] . '://' . $parse['host'];
+        }
+        if ($url) {
+            $html = file_get_contents($url);
+            $crawler = new Crawler($html);
+
+            $title = 'Untitled';
+            $description = 'No Description found';
+            $img = 'http://store.loadedcommerce.com/images/content/noImageAvailable330.gif';
+            if ($crawler->filter('title')->text() && $crawler->filter('title')->text() != '') {
+                $title = $crawler->filter('title')->text();
+            }
+            if ($crawler->filter('body p')->first()->text() && $crawler->filter('body p')->first()->text() != '') {
+                $description = $crawler->filter('body p')->first()->text();
+            }
+            if ($crawler->filter('body img')->first()->attr('src') && $crawler->filter('body img')->first()->attr(
+                    'src'
+                ) != ''
+            ) {
+                $img = $crawler->filter('body img')->first()->attr('src');
+                if( strpos($img, 'htt') !== false ){
+                    $img = $img;
+                }
+                else{
+                    $img = $domain . $img;
+                }
+            }
+            $response = array(
+                'url' => $url,
+                'title' => $title,
+                'content' => $description,
+                'img' => $img,
+            );
+            echo json_encode($response);
+        }
+    }
+
 }
