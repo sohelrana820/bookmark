@@ -1,4 +1,4 @@
-var app = angular.module('application', []);
+var app = angular.module('application', ['ui.bootstrap', 'blockUI']);
 
 app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
@@ -45,7 +45,7 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($s
 }]);
 
 
-app.controller('BoardController', ['$scope', '$filter', '$http', function($scope, $filter, $http) {
+app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', function ($scope, $filter, $http, blockUI) {
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
@@ -54,6 +54,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
     getBoards();
 
     function getBoards() {
+        blockUI.start();
         $http.get('boards/lists?page=' + $scope.currentPage + '&size=' + $scope.pageSize + '&search=' + $scope.query)
             .success(function(res)
             {
@@ -62,6 +63,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
                 $scope.startItem = ($scope.currentPage - 1) * $scope.pageSize + 1;
                 $scope.endItem = $scope.currentPage * $scope.pageSize;
                 $scope.boards = res.boards;
+                blockUI.stop();
             }
         );
     }
@@ -99,12 +101,10 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
                 toastr.error('Sorry, something went wrong');
             });
 
-        $scope.tag = '';
+        getBoards();
     };
 
     $scope.removeBoard = function(boardID) {
-
-
         $http({
             url: 'boards/removeBoard',
             method: "POST",
@@ -119,5 +119,6 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
             });
+        getBoards();
     };
 }]);

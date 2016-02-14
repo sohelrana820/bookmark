@@ -48,7 +48,7 @@
     <div>
 
 <?php
-echo $this->Html->script(['jquery.min', 'bootstrap.min', 'Chart.min', 'bootstrap-switch.min', 'jquery.matchHeight-min', 'jquery.dataTables.min', 'dataTables.bootstrap.min', 'select2.full.min', 'ace/ace', 'ace/mode-html', 'ace/theme-github', 'app', 'angular', 'toastr.min', 'application']);
+echo $this->Html->script(['jquery.min', 'bootstrap.min', 'Chart.min', 'bootstrap-switch.min', 'jquery.matchHeight-min', 'jquery.dataTables.min', 'dataTables.bootstrap.min', 'select2.full.min', 'ace/ace', 'ace/mode-html', 'ace/theme-github', 'app', 'angular', 'toastr.min', 'angular-block-ui', 'ui-bootstrap-tpls-0.12.0', 'application']);
 echo $this->fetch('jsBottom');
 ?>
 
