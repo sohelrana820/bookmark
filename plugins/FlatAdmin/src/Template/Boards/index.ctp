@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form  name="addNewTagForm" ng-submit="newBoard(board)">
+                    <form  name="addNewTagForm" ng-submit="createBoard(board)">
                         <div class="form-group">
                             <label>Name</label>
                             <input ng-model="board.name" class="form-control" placeholder="Board name">
@@ -39,7 +39,6 @@
                     <div class="card-title">
                         <a href="/bookmark/users/add" class="btn btn-primary btn-theme">New User</a>
                     </div>
-
                 </div>
                 <div class="card-body">
                     <table class="table theme-table">

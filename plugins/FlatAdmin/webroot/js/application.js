@@ -85,7 +85,8 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
 
     $scope.tag = '';
 
-    $scope.newBoard = function(board) {
+
+    $scope.createBoard = function(board) {
         $http({
             url: 'boards/add',
             method: "POST",
@@ -93,14 +94,11 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
             .success(function (response, status, headers, config) {
-                console.log(response);
-                /*toastr.success('Tag has been saved successfully');*/
-                /*$scope.tags.unshift(response);*/
+                toastr.success('Tag has been saved successfully');
             })
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
             });
-
         getBoards();
     };
 
@@ -113,8 +111,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
         })
             .success(function (response, status, headers, config) {
                 console.log(response);
-                /*toastr.success('Tag has been saved successfully');*/
-                /*$scope.tags.unshift(response);*/
+                toastr.success('Tag has been saved successfully');
             })
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
