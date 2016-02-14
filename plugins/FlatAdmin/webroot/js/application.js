@@ -61,7 +61,12 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
                 $scope.activity = [];
                 $scope.totalItems = res.count;
                 $scope.startItem = ($scope.currentPage - 1) * $scope.pageSize + 1;
+
                 $scope.endItem = $scope.currentPage * $scope.pageSize;
+                if (($scope.currentPage * $scope.pageSize) >= $scope.totalItems) {
+                    $scope.endItem = $scope.totalItems;
+                }
+
                 $scope.boards = res.boards;
                 blockUI.stop();
             }
@@ -77,7 +82,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
         getBoards();
     }
 
-    $scope.searchTextChanged = function(query) {
+    $scope.searchBoard = function(query) {
         $scope.query = query;
         $scope.currentPage = 1;
         getBoards();

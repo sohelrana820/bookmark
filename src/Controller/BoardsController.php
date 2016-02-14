@@ -73,85 +73,20 @@ class BoardsController extends AppController
         $page = 1;
         $conditions = array();
 
-        /*if(isset($this->request->query['size']) && $this->request->query['size'])
+        if(isset($this->request->query['size']) && $this->request->query['size'])
         {
             $limit = $this->request->query['size'];
         }
+
         if(isset($this->request->query['page']) && $this->request->query['page'])
         {
             $page = $this->request->query['page'];
         }
+
         if(isset($this->request->query['search']) && $this->request->query['search'])
         {
-            $conditions = array_merge($conditions, array('Vehicles.name LIKE' => '%'. $this->request->query['search'] .'%'));
+            $conditions = array_merge($conditions, array('Boards.name LIKE' => '%'. $this->request->query['search'] .'%'));
         }
-        if(isset($this->request->query['search']) && $this->request->query['search'])
-        {
-            $conditions = array_merge($conditions, array('Vehicles.name LIKE' => '%'. $this->request->query['search'] .'%'));
-        }
-        if(isset($this->request->query['type']) && $this->request->query['type'])
-        {
-            $conditions = array_merge($conditions, array('Vehicles.type' =>$this->request->query['type'] ));
-        }
-        if(isset($this->request->query['category']) && $this->request->query['category'])
-        {
-            $conditions = array_merge($conditions, array('Vehicles.category' =>$this->request->query['category'] ));
-        }
-        if(isset($this->request->query['minAmount']) && $this->request->query['minAmount'])
-        {
-            $conditions = array_merge($conditions, array('Vehicles.price >=' => $this->request->query['minAmount'] ));
-        }
-        if(isset($this->request->query['maxAmount']) && $this->request->query['maxAmount'])
-        {
-            $conditions = array_merge($conditions, array('Vehicles.price <=' => $this->request->query['maxAmount'] ));
-        }
-        if(isset($this->request->query['year']) && $this->request->query['year'])
-        {
-            $year = $this->request->query['year'];
-            if($year == 'Vintage')
-            {
-                $conditions = array_merge(
-                    $conditions,
-                    array(
-                        'Vehicles.fabrication_year <' => 1979
-                    )
-                );
-            }
-            else{
-                $year = explode('-', $year);
-                $conditions = array_merge(
-                    $conditions,
-                    array(
-                        'Vehicles.fabrication_year >=' => date('Y', strtotime($year[0])) ,
-                        'Vehicles.fabrication_year <=' => date('Y', strtotime($year[1]))
-                    )
-                );
-            }
-        }
-        if(isset($this->request->query['order']) && $this->request->query['order'])
-        {
-            $order = $this->request->query['order'];
-        }
-        if(isset($this->request->query['sort']) && $this->request->query['sort'])
-        {
-            $sort = $this->request->query['sort'];
-            if($sort == 'Price')
-            {
-                $sortBy = 'Vehicles.price';
-            }
-            elseif($sort == 'Rating')
-            {
-                $sortBy = 'Vehicles.rating';
-            }
-            elseif($sort == 'Year')
-            {
-                $sortBy = 'Vehicles.fabrication_year';
-            }
-            elseif($sort == 'Gear')
-            {
-                $sortBy = 'Vehicles.no_of_gears';
-            }
-        }*/
 
         $vehicles = $this->Boards->find('all',
             [
