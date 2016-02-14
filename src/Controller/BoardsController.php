@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Utility\Text;
 
 /**
  * Boards Controller
@@ -42,25 +43,24 @@ class BoardsController extends AppController
     }
 
     /**
-     * Add method
      *
-     * @return void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
-        $board = $this->Boards->newEntity();
+        $this->autoRender = false;
+
         if ($this->request->is('post')) {
-            $board = $this->Boards->patchEntity($board, $this->request->data);
+            $data = (array)json_decode(file_get_contents("php://input"));
+            $data['uuid'] = Text::uuid();
+            $data['user_id'] = $this->userID;
+            $board = $this->Boards->newEntity($data);
+
             if ($this->Boards->save($board)) {
-                $this->Flash->success(__('The board has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                echo json_encode(1);
             } else {
-                $this->Flash->error(__('The board could not be saved. Please, try again.'));
+                echo json_encode(0);
             }
         }
-        $users = $this->Boards->Users->find('list', ['limit' => 200]);
-        $this->set(compact('board', 'users'));
-        $this->set('_serialize', ['board']);
     }
 
     /**

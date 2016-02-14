@@ -1,51 +1,54 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Board'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="boards index large-9 medium-8 columns content">
-    <h3><?= __('Boards') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('uuid') ?></th>
-                <th><?= $this->Paginator->sort('user_id') ?></th>
-                <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('status') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
-                <th><?= $this->Paginator->sort('modified') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($boards as $board): ?>
-            <tr>
-                <td><?= $this->Number->format($board->id) ?></td>
-                <td><?= h($board->uuid) ?></td>
-                <td><?= $board->has('user') ? $this->Html->link($board->user->id, ['controller' => 'Users', 'action' => 'view', $board->user->id]) : '' ?></td>
-                <td><?= h($board->name) ?></td>
-                <td><?= $this->Number->format($board->status) ?></td>
-                <td><?= h($board->created) ?></td>
-                <td><?= h($board->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $board->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $board->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $board->id], ['confirm' => __('Are you sure you want to delete # {0}?', $board->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<?php echo $this->assign('title', 'New User'); ?>
+
+<div ng-controller="BoardController as BoardCtrl">
+
+
+    <div class="page-title">
+        <span class="title">Boards</span>
+        <div class="description">Your boards information</div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="title">New Board</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form  name="addNewTagForm" ng-submit="newBoard(board)">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input ng-model="board.name" class="form-control" placeholder="Board name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea  ng-model="board.description" placeholder="Board description" class="form-control" rows="5"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Board</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+
+
+
+<?php
+$this->start('cssTop');
+echo $this->Html->css(array('select2.min', 'datepicker'));
+$this->end();
+
+$this->start('jsTop');
+$this->end();
+
+$this->start('jsBottom');
+echo $this->Html->script(['select2.full.min', 'datepicker']);
+$this->end(); ?>

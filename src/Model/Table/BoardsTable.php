@@ -49,7 +49,7 @@ class BoardsTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
 
-        $validator
+        /*$validator
             ->requirePresence('uuid', 'create')
             ->notEmpty('uuid');
 
@@ -64,7 +64,7 @@ class BoardsTable extends Table
         $validator
             ->add('status', 'valid', ['rule' => 'numeric'])
             ->requirePresence('status', 'create')
-            ->notEmpty('status');
+            ->notEmpty('status');*/
 
         return $validator;
     }
@@ -76,9 +76,9 @@ class BoardsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    /*public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
-    }
+    }*/
 }
