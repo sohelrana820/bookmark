@@ -81,4 +81,17 @@ class BoardsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }*/
+
+    public function getIDbyUUID($uuid)
+    {
+        $result = $this->find()
+            ->where(['Boards.uuid' => $uuid])
+            ->first();
+
+        if($result)
+        {
+            return $result->id;
+        }
+        return null;
+    }
 }

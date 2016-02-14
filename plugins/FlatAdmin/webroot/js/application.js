@@ -51,41 +51,39 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
     $scope.totalItems = 0;
     $scope.pageSize = 5;
     $scope.query = '';
-    getData();
+    getBoards();
 
-    function getData() {
-        $http.get('tag?page=' + $scope.currentPage + '&size=' + $scope.pageSize + '&search=' + $scope.query)
-            .success(function(tags)
+    function getBoards() {
+        $http.get('boards/lists?page=' + $scope.currentPage + '&size=' + $scope.pageSize + '&search=' + $scope.query)
+            .success(function(res)
             {
                 $scope.activity = [];
-                $scope.totalItems = tags.totalCount;
+                $scope.totalItems = res.count;
                 $scope.startItem = ($scope.currentPage - 1) * $scope.pageSize + 1;
                 $scope.endItem = $scope.currentPage * $scope.pageSize;
-                $scope.tags = tags.tags;
+                $scope.boards = res.boards;
             }
         );
     }
 
     $scope.pageChanged = function() {
-        getData();
+        getBoards();
     }
 
     $scope.pageSizeChanged = function() {
         $scope.currentPage = 1;
-        getData();
+        getBoards();
     }
 
     $scope.searchTextChanged = function(query) {
         $scope.query = query;
         $scope.currentPage = 1;
-        getData();
+        getBoards();
     }
 
     $scope.tag = '';
 
     $scope.newBoard = function(board) {
-
-
         $http({
             url: 'boards/add',
             method: "POST",
@@ -102,5 +100,24 @@ app.controller('BoardController', ['$scope', '$filter', '$http', function($scope
             });
 
         $scope.tag = '';
+    };
+
+    $scope.removeBoard = function(boardID) {
+
+
+        $http({
+            url: 'boards/removeBoard',
+            method: "POST",
+            data: {id: boardID},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+            .success(function (response, status, headers, config) {
+                console.log(response);
+                /*toastr.success('Tag has been saved successfully');*/
+                /*$scope.tags.unshift(response);*/
+            })
+            .error(function (response, status, headers, config) {
+                toastr.error('Sorry, something went wrong');
+            });
     };
 }]);
