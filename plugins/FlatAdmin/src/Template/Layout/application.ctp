@@ -12,8 +12,9 @@
     <?php echo $this->Html->css(['bootstrap.min', 'font-awesome.min', 'animate.min', 'bootstrap-switch.min', 'checkbox3.min', 'jquery.dataTables.min', 'dataTables.bootstrap', 'select2.min', ]); ?>
     <!-- CSS App -->
     <?php
-    echo $this->Html->css(['style', 'flat-blue', 'custom']);
     echo $this->fetch('cssTop');
+    echo $this->Html->css(['style', 'flat-blue', 'custom']);
+
     echo $this->fetch('jsTop');
     ?>
 </head>

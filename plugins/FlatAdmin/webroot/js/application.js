@@ -94,7 +94,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
             .success(function (response, status, headers, config) {
-                toastr.success('Tag has been saved successfully');
+                toastr.success('Board has been created successfully');
             })
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
@@ -110,8 +110,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
             .success(function (response, status, headers, config) {
-                console.log(response);
-                toastr.success('Tag has been saved successfully');
+                toastr.error('Board has been remopved');
             })
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
