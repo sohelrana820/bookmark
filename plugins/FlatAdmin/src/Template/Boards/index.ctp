@@ -88,23 +88,20 @@
     </div>
 </div>
 
-
-
-
 <?php
 $this->start('cssTop');
 echo $this->Html->css(array('angular-block'));
 echo $this->Html->css(array('toaster.min.css'));
 $this->end();
+?>
 
-
+<?php
 $this->start('jsBottom');
-echo $this->Html->script(array('angular-animate.min'));
-echo $this->Html->script(array('ui-bootstrap-tpls-0.12.0.js'));
-
-echo $this->Html->script(array('angular-block-ui'));
 echo $this->Html->script(['select2.full.min', 'datepicker']);
-
+echo $this->Html->script(array('angular'));
+echo $this->Html->script(array('ui-bootstrap-tpls-0.12.0.js'));
 echo $this->Html->script(array('application'));
+echo $this->Html->script(array('angular-block-ui'));
+echo $this->Html->script(array('toastr.min'));
 $this->end();
 ?>

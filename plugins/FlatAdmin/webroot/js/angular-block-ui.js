@@ -1,5 +1,5 @@
 /*!
- angular-block-ui v0.2.0
+ angular-block-ui v0.2.1
  (c) 2015 (null) McNull https://github.com/McNull/angular-block-ui
  License: MIT
  */
@@ -61,44 +61,43 @@
         $provide.decorator('$location', decorateLocation);
     }]);
 
-    function decorateLocation($delegate, blockUI, blockUIConfig) {
+    var decorateLocation = [
+        '$delegate', 'blockUI', 'blockUIConfig',
+        function ($delegate, blockUI, blockUIConfig) {
 
-        if (blockUIConfig.blockBrowserNavigation) {
+            if (blockUIConfig.blockBrowserNavigation) {
 
-            blockUI.$_blockLocationChange = true;
+                blockUI.$_blockLocationChange = true;
 
-            var overrides = ['url', 'path', 'search', 'hash', 'state'];
+                var overrides = ['url', 'path', 'search', 'hash', 'state'];
 
-            function hook(f) {
-                var s = $delegate[f];
-                $delegate[f] = function () {
+                function hook(f) {
+                    var s = $delegate[f];
+                    $delegate[f] = function () {
 
-//        console.log(f, Date.now(), arguments);
+                        //        console.log(f, Date.now(), arguments);
 
-                    var result = s.apply($delegate, arguments);
+                        var result = s.apply($delegate, arguments);
 
-                    // The call was a setter if the $location service is returned.
+                        // The call was a setter if the $location service is returned.
 
-                    if (result === $delegate) {
+                        if (result === $delegate) {
 
-                        // Mark the mainblock ui to allow the location change.
+                            // Mark the mainblock ui to allow the location change.
 
-                        blockUI.$_blockLocationChange = false;
-                    }
+                            blockUI.$_blockLocationChange = false;
+                        }
 
-                    return result;
-                };
+                        return result;
+                    };
+                }
+
+                angular.forEach(overrides, hook);
+
             }
 
-            angular.forEach(overrides, hook);
-
-        }
-
-        return $delegate;
-    }
-    decorateLocation.$inject = ["$delegate", "blockUI", "blockUIConfig"];;
-
-    decorateLocation.$inject = ['$delegate', 'blockUI', 'blockUIConfig'];
+            return $delegate;
+        }];
 
 // Called from block-ui-directive for the 'main' instance.
 
@@ -110,7 +109,7 @@
 
                 $scope.$on('$locationChangeStart', function (event) {
 
-//        console.log('$locationChangeStart', mainBlockUI.$_blockLocationChange + ' ' + mainBlockUI.state().blockCount);
+                    //        console.log('$locationChangeStart', mainBlockUI.$_blockLocationChange + ' ' + mainBlockUI.state().blockCount);
 
                     if (mainBlockUI.$_blockLocationChange && mainBlockUI.state().blockCount > 0) {
                         event.preventDefault();
@@ -120,7 +119,7 @@
                 $scope.$on('$locationChangeSuccess', function () {
                     mainBlockUI.$_blockLocationChange = blockUIConfig.blockBrowserNavigation;
 
-//        console.log('$locationChangeSuccess', mainBlockUI.$_blockLocationChange + ' ' + mainBlockUI.state().blockCount);
+                    //        console.log('$locationChangeSuccess', mainBlockUI.$_blockLocationChange + ' ' + mainBlockUI.state().blockCount);
                 });
             }
 
@@ -386,6 +385,9 @@
 
         var $body = $document.find('body');
 
+        // These properties are not allowed to be specified in the start method.
+        var reservedStateProperties = ['id', 'blockCount', 'blocking'];
+
         function BlockUI(id) {
 
             var self = this;
@@ -401,15 +403,37 @@
 
             this._refs = 0;
 
-            this.start = function(message) {
+            this.start = function(messageOrOptions) {
 
-                if(state.blockCount > 0) {
-                    message = message || state.message || blockUIConfig.message;
+                messageOrOptions = messageOrOptions || {};
+
+                if(angular.isString(messageOrOptions)) {
+                    messageOrOptions = {
+                        message: messageOrOptions
+                    };
                 } else {
-                    message = message || blockUIConfig.message;
+                    angular.forEach(reservedStateProperties, function(x) {
+                        if(messageOrOptions[x]) {
+                            throw new Error('The property ' + x + ' is reserved for the block state.');
+                        }
+                    });
                 }
 
-                state.message = message;
+                angular.extend(state, messageOrOptions);
+
+                if(state.blockCount > 0) {
+                    state.message = messageOrOptions.message || state.message || blockUIConfig.message;
+                } else {
+                    state.message = messageOrOptions.message || blockUIConfig.message;
+                }
+
+                // if(state.blockCount > 0) {
+                //   messageOrOptions = messageOrOptions || state.message || blockUIConfig.message;
+                // } else {
+                //   messageOrOptions = messageOrOptions || blockUIConfig.message;
+                // }
+
+                // state.message = messageOrOptions;
 
                 state.blockCount++;
 
@@ -430,17 +454,22 @@
 
                     $timeout(function() {
                         // Ensure we still need to blur
-                        if(self._restoreFocus) {
+                        // Don't restore if active element is body, since this causes IE to switch windows (see http://tjvantoll.com/2013/08/30/bugs-with-document-activeelement-in-internet-explorer/)
+                        if (self._restoreFocus && self._restoreFocus !== $body[0]) {
                             self._restoreFocus.blur();
                         }
                     });
                 }
 
-                if (!startPromise) {
-                    startPromise = $timeout(function() {
-                        startPromise = null;
-                        state.blocking = true;
-                    }, blockUIConfig.delay);
+                if (!startPromise && blockUIConfig.delay !== 0) {
+                    startPromise = $timeout(block, blockUIConfig.delay);
+                } else if (blockUIConfig.delay === 0) {
+                    block();
+                }
+
+                function block () {
+                    startPromise = null;
+                    state.blocking = true;
                 }
             };
 
@@ -457,6 +486,10 @@
                 if (state.blockCount === 0) {
                     self.reset(true);
                 }
+            };
+
+            this.isBlocking = function () {
+                return state.blocking;
             };
 
             this.message = function(value) {
@@ -483,7 +516,23 @@
 
                 if(self._restoreFocus &&
                     (!$document[0].activeElement || $document[0].activeElement === $body[0])) {
-                    self._restoreFocus.focus();
+
+                    //IE8 will throw if element for setting focus is invisible
+                    try {
+                        self._restoreFocus.focus();
+                    } catch(e1) {
+                        (function () {
+                            var elementToFocus = self._restoreFocus;
+                            $timeout(function() {
+                                if(elementToFocus) {
+                                    try {
+                                        elementToFocus.focus();
+                                    } catch(e2) { }
+                                }
+                            },100);
+                        })();
+                    }
+
                     self._restoreFocus = null;
                 }
 
