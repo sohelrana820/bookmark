@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="bBundApp">
+<html lang="en" ng-app="application">
 <head>
     <meta charset="UTF-8">
     <title><?php echo $this->fetch('title');?></title>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 </head>
-<body ng-app="application">
+<body>
 
 <?php echo $this->element('header');?>
 <?php echo $this->Flash->render() ?>

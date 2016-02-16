@@ -33,7 +33,7 @@
                 <li class="dropdown">
 
                     <?php
-                    echo $this->Html->link($user['fullname']. ' <span class="caret"></span>', ['controller' => 'dashboard', 'action' => 'index'], ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'role' => 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', 'escape' => false]);
+                    echo $this->Html->link($loggedInUser->profile->name. ' <span class="caret"></span>', ['controller' => 'dashboard', 'action' => 'index'], ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'role' => 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', 'escape' => false]);
                     ?>
 
                     <ul class="dropdown-menu custom-dropdown">
