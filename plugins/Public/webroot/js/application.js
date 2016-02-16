@@ -45,13 +45,49 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($s
 }]);
 
 
-app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', function ($scope, $filter, $http, blockUI) {
+app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$modal', '$log', function ($scope, $filter, $http, blockUI, $modal, $log) {
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
     $scope.pageSize = 5;
     $scope.query = '';
     getBoards();
+
+    $scope.open = function () {
+        $modal.open({
+            templateUrl: 'myModalContent.html',
+            backdrop: true,
+            windowClass: 'modal',
+            controller: function ($scope, $modalInstance, $log, user) {
+                $scope.user = user;
+                $scope.createBoard = function(board) {
+                    $modalInstance.dismiss('cancel');
+                    $http({
+                        url: 'boards/add',
+                        method: "POST",
+                        data: board,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
+                        .success(function (response, status, headers, config) {
+                            toastr.success('Board has been created successfully');
+                        })
+                        .error(function (response, status, headers, config) {
+                            toastr.error('Sorry, something went wrong');
+                        });
+                    getBoards();
+                };
+                $scope.cancelRemoveModal = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            },
+            resolve: {
+                user: function () {
+                    return $scope.user;
+                }
+            }
+        });
+    };
+
 
     function getBoards() {
         blockUI.start();
@@ -91,21 +127,6 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
     $scope.tag = '';
 
 
-    $scope.createBoard = function(board) {
-        $http({
-            url: 'boards/add',
-            method: "POST",
-            data: board,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        })
-            .success(function (response, status, headers, config) {
-                toastr.success('Board has been created successfully');
-            })
-            .error(function (response, status, headers, config) {
-                toastr.error('Sorry, something went wrong');
-            });
-        getBoards();
-    };
 
     $scope.removeBoard = function(boardID) {
         $http({

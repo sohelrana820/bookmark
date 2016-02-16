@@ -4,31 +4,11 @@
 
     <div>
         <h1 class="header pull-left">My Boards</h1>
-        <button type="button" class="pull-right btn btn-raised btn-primary" data-toggle="modal" data-target="#complete-dialog">
-            New Board
-            <div class="ripple-container">
-                <div class="ripple ripple-on ripple-out" style="left: 114.25px; top: 17px; transform: scale(18.625); background-color: rgb(0, 150, 136);"></div>
-            </div>
-        </button>
+        <button class="pull-right btn btn-raised btn-primary" ng-click="open()">New Board</button>
     </div>
     <div class="clearfix"></div>
     <hr class="divider"/>
     <br/>
-
-    <form name="addNewTagForm" ng-submit="createBoard(board)">
-        <div class="form-group label-floating is-empty">
-            <label for="i5i" class="control-label">Your board name</label>
-            <input ng-model="board.name" class="form-control" id="i5i">
-            <span class="material-input"></span>
-        </div>
-
-        <div class="form-group label-floating is-empty">
-            <label for="i55" class="control-label">Board description</label>
-            <textarea  id="i55" ng-model="board.description" class="form-control" rows="5"></textarea>
-            <span class="material-input"></span>
-        </div>
-        <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
-    </form>
 
     <div class="row">
         <div ng-if="1 > totalItems">
@@ -113,7 +93,7 @@ echo $this->Html->script(array('truncate'));
 $this->end();
 ?>
 
-<div id="complete-dialog" class="modal fade" tabindex="-1" style="display: none;">
+<script type="text/ng-template" id="myModalContent.html">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -125,21 +105,19 @@ $this->end();
                     <div class="form-group label-floating is-empty">
                         <label for="i5i" class="control-label">Your board name</label>
                         <input ng-model="board.name" class="form-control" id="i5i">
-                        <span class="help-block">Your board name</span>
                         <span class="material-input"></span>
                     </div>
 
                     <div class="form-group label-floating is-empty">
                         <label for="i55" class="control-label">Board description</label>
                         <textarea  id="i55" ng-model="board.description" class="form-control" rows="5"></textarea>
-                        <span class="help-block">Board description</span>
                         <span class="material-input"></span>
                     </div>
                     <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                <button ng-click="cancelRemoveModal()" type="button" class="btn btn-primary" data-dismiss="modal">
                     Dismiss
                     <div class="ripple-container">
                         <div class="ripple ripple-on ripple-out" style="left: 32.1562px; top: 31px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div>
@@ -149,4 +127,4 @@ $this->end();
             </div>
         </div>
     </div>
-</div>
+</script>
