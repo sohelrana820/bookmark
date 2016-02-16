@@ -49,7 +49,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
-    $scope.pageSize = 5;
+    $scope.pageSize = 9;
     $scope.query = '';
     getBoards();
 
