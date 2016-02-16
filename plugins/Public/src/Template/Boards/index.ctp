@@ -15,7 +15,7 @@
     <hr class="divider"/>
     <br/>
 
-    <!--<form name="addNewTagForm" ng-submit="createBoard(board)">
+    <form name="addNewTagForm" ng-submit="createBoard(board)">
         <div class="form-group label-floating is-empty">
             <label for="i5i" class="control-label">Your board name</label>
             <input ng-model="board.name" class="form-control" id="i5i">
@@ -30,7 +30,7 @@
             <span class="material-input"></span>
         </div>
         <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
-    </form>-->
+    </form>
 
     <div class="row">
         <div ng-if="1 > totalItems">

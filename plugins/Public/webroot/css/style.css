@@ -1,5 +1,14 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     background: #FFF;
+}
+
+.content-area {
+    margin-bottom: 60px;
 }
 
 .pages .header {
@@ -32,9 +41,15 @@ body {
     float: right;
 }
 
-
-
 /** FOOTER START **/
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    background-color: #f5f5f5;
+}
+
 .footer {
     padding: 5px 0px;
     background: #009688;
