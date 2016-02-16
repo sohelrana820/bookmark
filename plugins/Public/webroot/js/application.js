@@ -109,11 +109,14 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
         );
     }
 
-    $scope.pageChanged = function() {
+    $scope.pageChanged = function(currentPage) {
+        console.log(currentPage);
+        $scope.currentPage = currentPage;
         getBoards();
     }
 
-    $scope.pageSizeChanged = function() {
+    $scope.pageSizeChanged = function(pageSize) {
+        $scope.pageSize = pageSize;
         $scope.currentPage = 1;
         getBoards();
     }

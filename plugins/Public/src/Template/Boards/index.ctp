@@ -25,7 +25,7 @@
             <div class="col-lg-10 col-sx-12">
                 <div class="form-group label-floating is-empty per-page-show">
                     <label for="i53" class="control-label">Per page show</label>
-                    <select id="i53" class="form-control" ng-init="pageSize = 5"  ng-model="pageSize" ng-change="pageSizeChanged()">
+                    <select id="i53" class="form-control" ng-model="pageSize" ng-change="pageSizeChanged(pageSize)">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -67,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="dataTables_paginate paging_simple_numbers">
                     <div>{{endItem}} of {{totalItems}} entries</div>
-                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"items-per-page="pageSize" max-size="3" boundary-links="true"rotate="false">
+                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged(currentPage)" items-per-page="pageSize" max-size="3" boundary-links="true"rotate="false">
                     </pagination>
                 </div>
             </div>
