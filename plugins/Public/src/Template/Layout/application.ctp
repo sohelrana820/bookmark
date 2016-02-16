@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php
-    echo $this->Html->css(['bootstrap.min.css', 'style', 'kit/style-9', 'style', 'custom']);
+    echo $this->Html->css(['bootstrap.min.css',  'kit/style-9', 'bootstrap-material-design.min.css', 'style', 'style', 'custom']);
     echo $this->fetch('cssTop');
     echo $this->fetch('jsTop');
     ?>
 
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,400italic,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 
 </head>
 <body>
@@ -48,8 +49,11 @@
 <!-- FOOTER END -->
 
 <?php
-echo $this->Html->script(['jquery', 'bootstrap', 'slim-scroll', 'app']);
+echo $this->Html->script(['jquery', 'bootstrap', 'material.min', 'slim-scroll', 'app']);
 echo $this->fetch('jsBottom');
 ?>
+<script>
+    $.material.init()
+</script>
 </body>
 </html>

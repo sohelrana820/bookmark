@@ -2,10 +2,10 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 a:hover {
-    color: #32c8de;
+    color: #009688;
 }
 .theme-color {
-    color: #32c8de;
+    color: #009688;
 }
 .sm-title {
     font-size: 15px;
@@ -13,7 +13,7 @@ a:hover {
 }
 /** HEADER START **/
 .header {
-    background: #222222;
+    background: #009688;
     border: 0px;
     border-radius: 0px;
     margin-bottom: 0px;
@@ -28,7 +28,7 @@ a:hover {
 .header .navbar-nav > .active > a:focus,
 .header .navbar-nav > .active > a:hover {
     color: #FFF;
-    background-color: #171212;
+    background-color: #07887C;
 }
 .header .navbar-nav > li > a {
     color: #fff;
@@ -39,13 +39,13 @@ a:hover {
 .header .navbar-nav > li > a:focus {
     color: #fff;
     font-size: 13px;
-    background: #171212;
+    background: #009688;
 }
 .header .navbar-nav > .open > a,
 .header .navbar-nav > .open > a:focus,
 .header .navbar-nav > .open > a:hover {
     color: #fff;
-    background-color: #171212;
+    background-color: #009688;
 }
 .custom-dropdown {
     min-width: 300px;
@@ -61,7 +61,7 @@ a:hover {
     color: #777;
 }
 .custom-dropdown li a:hover {
-    color: #32c8de;
+    color: #009688;
     background: none;
 }
 button.hamburger.is-open {
@@ -88,7 +88,7 @@ button.hamburger.is-open {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-    border-color: #222;
+    border-color: #009688;
 }
 .header .navbar-toggle {
     border-color: transparent;
@@ -137,7 +137,7 @@ button.hamburger.is-open {
 }
 .services-media a:hover,
 .services-media a:hover .media-heading {
-    color: #32c8de;
+    color: #009688;
 }
 .s-icon {
     font-size: 20px !important;
@@ -163,6 +163,15 @@ button.hamburger.is-open {
     font-size: 20px;
     font-weight: 500;
 }
+
+.bg-lblue {
+    background-color: #009688 !important;
+    border-top: 1px solid #07887C;
+}
+
+.fotm-control{
+
+}
 /** COMMON SECTION END **/
 
 
@@ -175,7 +184,7 @@ button.hamburger.is-open {
 /** FOOTER START **/
 .footer {
     padding: 5px 0px;
-    background: #222;
+    background: #009688;
 }
 .footer-nav {
     margin: 0px;
@@ -193,7 +202,7 @@ button.hamburger.is-open {
 }
 .copy {
     text-align: right;
-    color: #555;
+    color: #fff;
     font-size: 12px;
     margin: 0px;
     line-height: 28px;
@@ -215,7 +224,7 @@ label.tree-toggler.nav-header {
     -moz-osx-font-smoothing: grayscale;
     content: "\f147";
     margin-right: 5px;
-    color: #32c8de;
+    color: #009688;
 }
 .plus-sign:before {
     display: inline-block;
@@ -226,10 +235,10 @@ label.tree-toggler.nav-header {
     -moz-osx-font-smoothing: grayscale;
     content: "\f196" !important;
     margin-right: 5px;
-    color: #32c8de;
+    color: #009688;
 }
 .open-services {
-    border-left: 2px solid #32c8de;
+    border-left: 2px solid #009688;
     background: #eee;
 }
 /*============Media Quires=========*/
@@ -252,7 +261,7 @@ label.tree-toggler.nav-header {
         height: 1px;
         margin: 9px 0;
         overflow: hidden;
-        background-color: #222;
+        background-color: #009688;
     }
     .header .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
