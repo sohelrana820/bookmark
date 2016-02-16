@@ -40,7 +40,10 @@
 
             <div class="panel panel-info" ng-repeat="board in boards | filter:query">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{board.name}}</h3>
+                    <h3 class="panel-title">
+                        {{board.name}}
+
+                    </h3>
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
@@ -48,6 +51,17 @@
                             <div class="row-content">
                                 <h4 class="list-group-item-heading">{{board.name}}</h4>
                                 <p class="list-group-item-text">{{board.description}}</p>
+                            </div>
+                            <div class="pull-right delete-icons">
+                                <a href="boards/view/{{board.uuid}}" class="green">
+                                    <i class="fa fa-gear t-icon"></i>
+                                </a>
+                                <a href="/bookmark/users/edit/e6a40e81-3b6d-4b88-96e2-bcb8afdf" class="lblue">
+                                    <i class="fa fa-pencil t-icon"></i>
+                                </a>
+                                <a class="red" ng-click="removeBoard(board.id)">
+                                    <i class="fa fa-times t-icon"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

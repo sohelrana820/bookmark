@@ -2,6 +2,27 @@
     color: rgb(82, 101, 162);=
 }
 
+.icon-blue {
+    color: #0D78A8 !important;
+    cursor: pointer;
+}
+
+.panel .delete-icons{
+    display: none;
+}
+
+.t-icon{
+    cursor: pointer;
+}
+
+.panel .delete-icons .t-icon{
+    margin-left: 5px;
+}
+
+.panel:hover .delete-icons{
+    display: inline;
+}
+
 /** FOOTER START **/
 .footer {
     padding: 5px 0px;
