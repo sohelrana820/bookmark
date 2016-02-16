@@ -1,4 +1,4 @@
- var app = angular.module('application', ['ui.bootstrap', 'blockUI']);
+ var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate']);
 
 app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
@@ -49,7 +49,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', func
 
     $scope.currentPage = 1;
     $scope.totalItems = 0;
-    $scope.pageSize = 5;
+    $scope.pageSize = 9;
     $scope.query = '';
     getBoards();
 

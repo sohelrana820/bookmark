@@ -1,3 +1,7 @@
+body {
+    background: #FFF;
+}
+
 .pages .header {
     color: rgb(82, 101, 162);=
 }
@@ -22,6 +26,13 @@
 .panel:hover .delete-icons{
     display: inline;
 }
+
+.per-page-show{
+    width: 120px;
+    float: right;
+}
+
+
 
 /** FOOTER START **/
 .footer {
