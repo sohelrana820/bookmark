@@ -8,6 +8,7 @@ body {
 }
 
 .content-area {
+    margin-top: 60px;
     margin-bottom: 60px;
 }
 
@@ -44,6 +45,14 @@ body {
     float: right;
 }
 
+.navbar {
+    margin-bottom: 0px;
+}
+
+.bg-lblue {
+    border-top: 1px solid #1DB0C5;
+}
+
 /** FOOTER START **/
 .footer {
     position: absolute;
@@ -55,7 +64,7 @@ body {
 
 .footer {
     padding: 5px 0px;
-    background: #009688;
+    background: #32c8de;
 }
 .footer-nav {
     margin: 0px;

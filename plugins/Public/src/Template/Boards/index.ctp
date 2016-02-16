@@ -60,7 +60,7 @@
             <div class="clearfix"></div>
 
             <div class="col-lg-4" ng-repeat="board in boards | filter:query">
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             {{board.name}}

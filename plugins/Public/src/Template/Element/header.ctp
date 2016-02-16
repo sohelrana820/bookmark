@@ -12,34 +12,21 @@
             <?php echo $this->Html->image('logo.png', ['class' => 'navbar-brand logo', 'url' => ['controller' => 'dashboard', 'action' => 'index']]);?>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown active">
-                    <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-haspopup="true" aria-expanded="false">Mi-Center <span class="caret"></span></a>
-                    <ul class="dropdown-menu custom-dropdown">
-                        <li>
-                            <h4 class="sm-title text-uppercase">Resource Groups</h4>
-                            A resource group is a collection of resources that share one or more tags.
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="index.html">Create a Resource Group</a></li>
-                        <li><a href="index.html">Tag Editor</a></li>
-                    </ul>
-                </li>
-                <li><a href="index.html" id="services">Services <span class="caret"></span></a></li>
-            </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html" id="services">Category <span class="caret"></span></a></li>
+                <li>
+                    <?php echo $this->Html->link('My Boards', ['controller' => 'boards', 'action' => 'index']);?>
+                </li>
                 <li class="dropdown">
-
                     <?php
                     echo $this->Html->link($loggedInUser->profile->name. ' <span class="caret"></span>', ['controller' => 'dashboard', 'action' => 'index'], ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'role' => 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', 'escape' => false]);
                     ?>
-
                     <ul class="dropdown-menu custom-dropdown">
                         <li>
                             <?php echo $this->Html->link('My Account', ['controller' => 'profile']);?>
                         </li>
+                        <li><a href="index.html">Support Center</a></li>
                         <li><a href="index.html">Billing & Cost Management</a></li>
                         <li><a href="index.html">Security Credentials</a></li>
                         <li role="separator" class="divider"></li>
@@ -48,17 +35,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Support <span class="caret"></span></a>
-                    <ul class="dropdown-menu custom-dropdown">
-                        <li><a href="index.html">Support Center</a></li>
-                        <li><a href="index.html">Training</a></li>
-                        <li><a href="index.html">Documentation</a></li>
-                        <li><a href="index.html">Other Resources</a></li>
-                        <li><a href="index.html">Forums</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
     </div>
