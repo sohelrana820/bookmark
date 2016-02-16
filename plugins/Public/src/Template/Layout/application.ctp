@@ -14,6 +14,9 @@
 
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,400italic,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 
 </head>
@@ -23,7 +26,7 @@
 <?php echo $this->Flash->render() ?>
 
 <div class="container">
-    <div class="content-area">
+    <div class="content-area pages">
         <?php echo $this->fetch('content'); ?>
     </div>
 </div>

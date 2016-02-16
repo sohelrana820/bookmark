@@ -3,46 +3,62 @@
 <div ng-controller="BoardController as BoardCtrl">
 
 
-    <div class="page-title">
-        <span class="title">Boards</span>
-        <div class="description">Your boards information</div>
-    </div>
+    <h1 class="header">My Board</h1>
+    <hr class="divider"/>
+    <br/>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-6">
+            <div class="well page active">
+                <h3>New Board</h3>
+                <form  name="addNewTagForm" ng-submit="createBoard(board)">
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title">New Board</div>
+                    <div class="form-group label-floating is-empty">
+                        <label for="i5i" class="control-label">Your board name</label>
+                        <input ng-model="board.name" class="form-control" id="i5i">
+                        <span class="help-block">Your board name</span>
+                        <span class="material-input"></span>
                     </div>
+
+                    <div class="form-group label-floating is-empty">
+                        <label for="i55" class="control-label">Board description</label>
+                        <textarea  id="i55" ng-model="board.description" class="form-control" rows="5"></textarea>
+                        <span class="help-block">Board description</span>
+                        <span class="material-input"></span>
+                    </div>
+
+                    <div class="form-group">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+
+            <div class="panel panel-info" ng-repeat="board in boards | filter:query">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{board.name}}</h3>
                 </div>
-                <div class="card-body">
-                    <form  name="addNewTagForm" ng-submit="createBoard(board)">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input ng-model="board.name" class="form-control" placeholder="Board name">
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="row-content">
+                                <h4 class="list-group-item-heading">{{board.name}}</h4>
+                                <p class="list-group-item-text">{{board.description}}</p>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea  ng-model="board.description" placeholder="Board description" class="form-control" rows="5"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Save Board</button>
-                    </form>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-
-
-
                 <div class="card-body">
                     <div ng-if="1 > totalItems">
                         <h4 class="red text-center">Sorry, result not found</h4>
                     </div>
-
                     <div ng-if="0 < totalItems">
                         <div class="row">
                             <div class="col-lg-3">
@@ -61,6 +77,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <table class="table theme-table">
                             <thead>
                             <tr>
@@ -112,6 +129,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
