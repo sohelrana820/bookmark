@@ -20,11 +20,16 @@
 
 <?php echo $this->element('header');?>
 <?php echo $this->Flash->render() ?>
-<?php echo $this->fetch('content'); ?>
+
+<div class="container">
+    <div class="content-area">
+        <?php echo $this->fetch('content'); ?>
+    </div>
+</div>
 
 <!-- FOOTER START -->
 <footer class="footer">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <ul class="footer-nav">
