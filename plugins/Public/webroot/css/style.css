@@ -53,6 +53,10 @@ body {
     border-top: 1px solid #1DB0C5;
 }
 
+.brand-panel{
+    min-height: 309px;
+}
+
 /** FOOTER START **/
 .footer {
     position: absolute;
