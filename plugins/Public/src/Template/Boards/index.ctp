@@ -26,10 +26,9 @@
                 <div class="form-group label-floating is-empty per-page-show">
                     <label for="i53" class="control-label">Per page show</label>
                     <select id="i53" class="form-control" ng-model="pageSize" ng-change="pageSizeChanged(pageSize)">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                        <option value="9">9</option>
+                        <option value="12">12</option>
+                        <option value="15">15</option>
                     </select>
                     <span class="material-input"></span>
                 </div>
@@ -97,7 +96,7 @@ $this->end();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelRemoveModal()">×</button>
                 <h4 class="modal-title">New Board</h4>
             </div>
             <div class="modal-body">
