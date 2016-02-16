@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Utility\Text;
+use Cake\Event\Event;
 
 /**
  * Boards Controller
@@ -11,6 +12,13 @@ use Cake\Utility\Text;
  */
 class BoardsController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        $this->viewBuilder()
+            ->layout('application')
+            ->theme('Public');
+    }
 
     /**
      * Index method
