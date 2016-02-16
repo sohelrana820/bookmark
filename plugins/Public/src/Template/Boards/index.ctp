@@ -19,14 +19,12 @@
         <div class="form-group label-floating is-empty">
             <label for="i5i" class="control-label">Your board name</label>
             <input ng-model="board.name" class="form-control" id="i5i">
-            <span class="help-block">Your board name</span>
             <span class="material-input"></span>
         </div>
 
         <div class="form-group label-floating is-empty">
             <label for="i55" class="control-label">Board description</label>
             <textarea  id="i55" ng-model="board.description" class="form-control" rows="5"></textarea>
-            <span class="help-block">Board description</span>
             <span class="material-input"></span>
         </div>
         <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
