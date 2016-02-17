@@ -34,6 +34,10 @@ class ResourcesController extends AppController
         ];
         $this->set('resources', $this->paginate($this->Resources));
         $this->set('_serialize', ['resources']);
+
+        $this->loadModel('Boards');
+        $boards = $this->Boards->find('list')->select(['id', 'name'])->toArray();
+        $this->set('boards', $boards);
     }
 
     /**

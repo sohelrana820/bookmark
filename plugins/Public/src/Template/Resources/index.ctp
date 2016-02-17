@@ -10,33 +10,46 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="card">
-                <div class="card-body">
-                    <div ng-controller="BookmarkController as bookmarkCtrl">
-                        <div>
-                            <input type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)" placeholder="Paste your url">
-                        </div>
+            <div class="well page">
+                <div ng-controller="BookmarkController as bookmarkCtrl">
 
-                        <div class="row" ng-show="previewEnable">
-                            <div class="col-lg-12">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">Bookmark Preview</h4>
+                    <div class="clearfix">
+                        <div class="form-group label-floating is-empty">
+                        <label for="i5i" class="control-label">Paste your url</label>
+                        <input id="i5i" type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)">
+                    </div>
+
+                    <div class="form-group label-floating is-empty">
+                        <label for="i52" class="control-label">Paste your url</label>
+                        <select class="form-control" id="i52">
+                            <?php foreach($boards as $board => $value): ?>
+                                <option value="<?php echo $board;?>"><?php echo $value;?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+
+
+                    <div class="row" ng-show="previewEnable">
+                        <div class="col-lg-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Bookmark Preview</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <h3 ng-model="urlTitle">{{resourceDetails.title}}</h3>
                                     </div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <h3 ng-model="urlTitle">{{resourceDetails.title}}</h3>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="preview_img text-center">
-                                                <img class="img-thumbnail" ng-model="urlImg" src="{{resourceDetails.img}}">
-                                            </div>
-                                            <p class="lead" ng-model="urlDescription">{{resourceDetails.content}}</p>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <button class="btn btn-info btn-lg" ng-click="saveResources()">Save as Bookmark</button>
+                                    <div class="form-group">
+                                        <div class="preview_img text-center">
+                                            <img class="img-thumbnail" ng-model="urlImg" src="{{resourceDetails.img}}">
                                         </div>
+                                        <p class="lead" ng-model="urlDescription">{{resourceDetails.content}}</p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-info btn-lg" ng-click="saveResources()">Save as Bookmark</button>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +59,6 @@
             </div>
         </div>
     </div>
-
 
 
 <?php
