@@ -49,77 +49,20 @@
         <!-- Container fluid -->
         <div class="container-fluid">
             <div class="row">
+                <?php foreach($categories as $category):?>
                 <div class="col-md-3 col-sm-3 col-xs-6 col">
                     <!-- UI Item -->
                     <div class="ui-item">
                         <!-- Heading -->
-                        <h4>Web Development</h4>
+                        <h4><?php echo $category->name;?></h4>
                         <ul class="list-unstyled">
-                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; Life ring</a></li>
-                            <li><a href="#"><i class="fa fa-sitemap"></i> &nbsp; Sitemap</a></li>
-                            <li><a href="#"><i class="fa fa-toggle-on"></i> &nbsp; Toggle on</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> &nbsp; User</a></li>
-                            <li><a href="#"><i class="fa fa-tree"></i> &nbsp; Tree</a></li>
-                            <li><a href="#"><i class="fa fa-users"></i> &nbsp; Users</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> &nbsp; Star</a></li>
-                            <li><a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; Puzzle</a></li>
+                            <?php foreach($category->children as $children):?>
+                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; <?php echo $children->name;?></a></li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-6 col">
-                    <!-- UI item -->
-                    <div class="ui-item">
-                        <!-- Heading -->
-                        <h4>Web Design</h4>
-                        <ul class="list-unstyled">
-                            <!-- Icons -->
-                            <li><a href="#"><i class="fa fa-phone"></i> &nbsp; Phone</a></li>
-                            <li><a href="#"><i class="fa fa-male"></i> &nbsp; Male</a></li>
-                            <li><a href="#"><i class="fa fa-map-marker"></i> &nbsp; Location</a></li>
-                            <li><a href="#"><i class="fa fa-plane"></i> &nbsp; Plane</a></li>
-                            <li><a href="#"><i class="fa fa-building"></i> &nbsp; Building</a></li>
-                            <li><a href="#"><i class="fa fa-desktop"></i> &nbsp; Desktop</a></li>
-                        </ul>
-                        <br/>
-
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-6 col">
-                    <!-- UI Item -->
-                    <div class="ui-item">
-                        <!-- Heading -->
-                        <h4>SEO</h4>
-                        <ul class="list-unstyled">
-
-                            <li><a href="#"><i class="fa fa-asterisk"></i> &nbsp; Asterisk</a></li>
-                            <li><a href="#"><i class="fa fa-university"></i> &nbsp; University</a></li>
-                            <li><a href="#"><i class="fa fa-building"></i> &nbsp; Building</a></li>
-                            <li><a href="#"><i class="fa fa-desktop"></i> &nbsp; Desktop</a></li>
-                            <li><a href="#"><i class="fa fa-cloud-download"></i> &nbsp; Cloud</a></li>
-                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; Life ring</a></li>
-                            <li><a href="#"><i class="fa fa-sitemap"></i> &nbsp; Sitemap</a></li>
-                            <li><a href="#"><i class="fa fa-toggle-on"></i> &nbsp; Toggle on</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> &nbsp; User</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-6 col">
-                    <!-- UI Item -->
-                    <div class="ui-item">
-                        <!-- Heading -->
-                        <h4>Tools</h4>
-                        <ul class="list-unstyled">
-
-                            <li><a href="#"><i class="fa fa-university"></i> &nbsp; University</a></li>
-                            <li><a href="#"><i class="fa fa-building"></i> &nbsp; Building</a></li>
-                            <li><a href="#"><i class="fa fa-desktop"></i> &nbsp; Desktop</a></li>
-                            <li><a href="#"><i class="fa fa-cloud-download"></i> &nbsp; Cloud</a></li>
-                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; Life ring</a></li>
-                            <li><a href="#"><i class="fa fa-sitemap"></i> &nbsp; Sitemap</a></li>
-                            <li><a href="#"><i class="fa fa-toggle-on"></i> &nbsp; Toggle on</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <?php endforeach;?>
             </div>
         </div>
         <!--/ Container fluid -->
