@@ -10,9 +10,11 @@
     <hr class="divider"/>
     <br/>
 
+
+
     <div class="row">
         <div ng-if="1 > totalItems">
-            <h4 class="red text-center">Sorry, you have no board</h4>
+            <h4 class="red text-center not-found">Sorry, you have no board</h4>
         </div>
         <div ng-if="0 < totalItems">
             <div class="col-lg-2 col-sx-12">
@@ -89,8 +91,10 @@ echo $this->Html->script(array('application'));
 echo $this->Html->script(array('angular-block-ui'));
 echo $this->Html->script(array('toastr.min'));
 echo $this->Html->script(array('truncate'));
+echo $this->Html->script(array('angular-messages'));
 $this->end();
 ?>
+
 
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-dialog">
@@ -100,19 +104,27 @@ $this->end();
                 <h4 class="modal-title">New Board</h4>
             </div>
             <div class="modal-body">
-                <form name="addNewTagForm" ng-submit="createBoard(board)">
+                <form name="addNewBoardForm" ng-submit="createBoard(board)" novalidate>
                     <div class="form-group label-floating is-empty">
                         <label for="i5i" class="control-label">Your board name</label>
-                        <input ng-model="board.name" class="form-control" id="i5i">
-                        <span class="material-input"></span>
+                        <input name="name" ng-model="board.name" class="form-control" id="i5i" required>
+                        <span class="material-input help-desk-error">
+                            <div ng-messages="addNewBoardForm.name.$error" ng-if="addNewBoardForm.name.$touched">
+                                <div ng-message="required">Board name must be required required</div>
+                            </div>
+                        </span>
                     </div>
 
                     <div class="form-group label-floating is-empty">
                         <label for="i55" class="control-label">Board description</label>
-                        <textarea  id="i55" ng-model="board.description" class="form-control" rows="5"></textarea>
-                        <span class="material-input"></span>
+                        <textarea name="description" id="i55" ng-model="board.description" class="form-control" rows="5" required></textarea>
+                        <span class="material-input help-desk-error">
+                            <div ng-messages="addNewBoardForm.description.$error" ng-if="addNewBoardForm.description.$touched">
+                                <div ng-message="required">Board description must be required required</div>
+                            </div>
+                        </span>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
+                    <button type="submit" class="btn btn-raised btn-primary" ng-disabled="addNewBoardForm.$invalid">Save Board</button>
                 </form>
             </div>
             <div class="modal-footer">
