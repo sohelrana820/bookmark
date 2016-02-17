@@ -38,8 +38,8 @@
 
             <div class="clearfix"></div>
 
-            <div class="col-lg-4" ng-repeat="board in boards | filter:query">
-                <div class="brand-panel panel panel-primary">
+            <div class="col-lg-4 animate-repeat" ng-repeat="board in boards | filter:query">
+                <div class="brand-panel panel panel-primary animate-repeat">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             {{board.name}}
@@ -92,6 +92,7 @@ echo $this->Html->script(array('angular-block-ui'));
 echo $this->Html->script(array('toastr.min'));
 echo $this->Html->script(array('truncate'));
 echo $this->Html->script(array('angular-messages'));
+echo $this->Html->script(array('angular-animate.min'));
 $this->end();
 ?>
 

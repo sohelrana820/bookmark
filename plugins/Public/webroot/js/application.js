@@ -1,4 +1,4 @@
- var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate', 'ngMessages']);
+ var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate', 'ngMessages', 'ngAnimate']);
 
 app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
