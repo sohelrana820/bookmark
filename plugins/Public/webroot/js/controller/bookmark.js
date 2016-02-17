@@ -117,27 +117,33 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
                         toastr.error('Sorry, something went wrong');
                     });
 
+
                 $scope.editBoard = function(board) {
-                    $modalInstance.dismiss('cancel');
-                    $http({
-                        url: 'boards/edit',
-                        method: "POST",
-                        data: board,
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                    })
-                        .success(function (response, status, headers, config) {
-                            if(response == 1)
-                            {
-                                toastr.success('Board has been updated successfully');
-                            }
-                            else{
-                                toastr.error('Sorry, something went wrong');
-                            }
+
+                    if($scope.board.id)
+                    {
+                        board.id = $scope.board.id;
+                        $modalInstance.dismiss('cancel');
+                        $http({
+                            url: 'boards/edit',
+                            method: "POST",
+                            data: board,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
-                        .error(function (response, status, headers, config) {
-                            toastr.error('Sorry, something went wrong');
-                        });
-                    getBoards();
+                            .success(function (response, status, headers, config) {
+                                if(response == 1)
+                                {
+                                    toastr.success('Board has been updated successfully');
+                                }
+                                else{
+                                    toastr.error('Sorry, something went wrong');
+                                }
+                            })
+                            .error(function (response, status, headers, config) {
+                                toastr.error('Sorry, something went wrong');
+                            });
+                        getBoards();
+                    }
                 };
             },
             resolve: {

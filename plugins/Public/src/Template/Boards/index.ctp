@@ -152,7 +152,6 @@ $this->end();
                 <form name="addNewBoardForm" ng-submit="editBoard(board)" novalidate>
                     <div class="form-group label-floating is-empty is-focused">
                         <label for="i5i" class="control-label">Your board name</label>
-                        <input type="hidden" ng-model="board.id">
                         <input name="name" ng-model="board.name" class="form-control" id="i5i" required value="{{name}}">
                         <span class="material-input help-desk-error">
                             <div ng-messages="addNewBoardForm.name.$error" ng-if="addNewBoardForm.name.$touched">
