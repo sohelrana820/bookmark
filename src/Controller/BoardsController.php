@@ -122,23 +122,32 @@ class BoardsController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $board = $this->Boards->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $board = $this->Boards->patchEntity($board, $this->request->data);
-            if ($this->Boards->save($board)) {
-                $this->Flash->success(__('The board has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The board could not be saved. Please, try again.'));
+
+        $this->autoRender = false;
+
+        if ($this->request->is('post')) {
+            $data = (array)json_decode(file_get_contents("php://input"));
+            $borderInfo = array(
+                'name' => $data['name'],
+                'description' => $data['description']
+            );
+
+
+            $board = $this->Boards->get($data['id'], [
+                'contain' => []
+            ]);
+
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $board = $this->Boards->patchEntity($board, $borderInfo);
+                if ($this->Boards->save($board)) {
+                    echo json_encode(1);
+                } else {
+                    echo json_encode(0);
+                }
             }
         }
-        $users = $this->Boards->Users->find('list', ['limit' => 200]);
-        $this->set(compact('board', 'users'));
-        $this->set('_serialize', ['board']);
     }
 
     public function removeBoard()
@@ -150,6 +159,21 @@ class BoardsController extends AppController
             echo json_encode(1);
         } else {
             echo json_encode(0);
+        }
+    }
+
+    public function getBoardByID()
+    {
+        $this->autoRender = false;
+        $data = json_decode(file_get_contents("php://input"));
+        $board = $this->Boards->get((int) $data->id);
+
+        if($board)
+        {
+            echo json_encode($board);
+        }
+        else{
+            echo json_encode(false);
         }
     }
 

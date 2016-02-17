@@ -1,4 +1,4 @@
- var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate', 'ngMessages', 'ngAnimate']);
+ var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate', 'ngMessages']);
 
 app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
@@ -59,7 +59,6 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
             backdrop: true,
             windowClass: 'modal',
             controller: function ($scope, $modalInstance, $log, user) {
-                $scope.user = user;
                 $scope.createBoard = function(board) {
                     $modalInstance.dismiss('cancel');
                     $http({
@@ -139,11 +138,61 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
             .success(function (response, status, headers, config) {
-                toastr.error('Board has been remopved');
+                toastr.error('Board has been removed successfully');
             })
             .error(function (response, status, headers, config) {
                 toastr.error('Sorry, something went wrong');
             });
         getBoards();
+    };
+
+
+
+    $scope.editBoard = function(boardID) {
+
+        $scope.board ;
+
+        $modal.open({
+            templateUrl: 'editBoard.html',
+            backdrop: true,
+            windowClass: 'modal',
+            controller: function ($scope, $modalInstance, $log, user) {
+
+                $http({
+                    url: 'boards/getBoardByID',
+                    method: "POST",
+                    data: {id: boardID},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .success(function (response, status, headers, config) {
+                        $scope.board = response;
+
+                    }
+                );
+
+                $scope.editBoard = function(board) {
+                    $modalInstance.dismiss('cancel');
+                    $http({
+                        url: 'boards/edit',
+                        method: "POST",
+                        data: board,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
+                        .success(function (response, status, headers, config) {
+                            if(response == 1)
+                            {
+                                toastr.success('Board has been updated successfully');
+                            }
+                            else{
+                                toastr.error('Sorry, something went wrong');
+                            }
+                        })
+                        .error(function (response, status, headers, config) {
+                            toastr.error('Sorry, something went wrong');
+                        });
+                    getBoards();
+                };
+            }
+        });
     };
 }]);

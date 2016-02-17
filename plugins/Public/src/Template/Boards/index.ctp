@@ -52,7 +52,7 @@
                             <a href="boards/view/{{board.uuid}}" class="green">
                                 <i class="fa fa-gear t-icon"></i>
                             </a>
-                            <a href="/bookmark/users/edit/e6a40e81-3b6d-4b88-96e2-bcb8afdf" class="lblue">
+                            <a ng-click="editBoard(board.id)" class="lblue">
                                 <i class="fa fa-pencil t-icon"></i>
                             </a>
                             <a class="red" ng-click="removeBoard(board.id)">
@@ -92,7 +92,6 @@ echo $this->Html->script(array('angular-block-ui'));
 echo $this->Html->script(array('toastr.min'));
 echo $this->Html->script(array('truncate'));
 echo $this->Html->script(array('angular-messages'));
-echo $this->Html->script(array('angular-animate.min'));
 $this->end();
 ?>
 
@@ -126,6 +125,51 @@ $this->end();
                         </span>
                     </div>
                     <button type="submit" class="btn btn-raised btn-primary" ng-disabled="addNewBoardForm.$invalid">Save Board</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="cancelRemoveModal()" type="button" class="btn btn-primary" data-dismiss="modal">
+                    Dismiss
+                    <div class="ripple-container">
+                        <div class="ripple ripple-on ripple-out" style="left: 32.1562px; top: 31px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div>
+                        <div class="ripple ripple-on ripple-out" style="left: 50.1562px; top: 19px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editBoard.html">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelRemoveModal()">×</button>
+                <h4 class="modal-title">New Board</h4>
+            </div>
+            <div class="modal-body">
+                <form name="addNewBoardForm" ng-submit="editBoard(board)" novalidate>
+                    <div class="form-group label-floating is-empty is-focused">
+                        <label for="i5i" class="control-label">Your board name</label>
+                        <input type="hidden" ng-model="board.id">
+                        <input name="name" ng-model="board.name" class="form-control" id="i5i" required value="{{name}}">
+                        <span class="material-input help-desk-error">
+                            <div ng-messages="addNewBoardForm.name.$error" ng-if="addNewBoardForm.name.$touched">
+                                <div ng-message="required">Board name must be required required</div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="form-group label-floating is-empty is-focused">
+                        <label for="i55" class="control-label">Board description</label>
+                        <textarea name="description" id="i55" ng-model="board.description" class="form-control" rows="5" required></textarea>
+                        <span class="material-input help-desk-error">
+                            <div ng-messages="addNewBoardForm.description.$error" ng-if="addNewBoardForm.description.$touched">
+                                <div ng-message="required">Board description must be required required</div>
+                            </div>
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-primary" ng-disabled="addNewBoardForm.$invalid">Update Board</button>
                 </form>
             </div>
             <div class="modal-footer">
