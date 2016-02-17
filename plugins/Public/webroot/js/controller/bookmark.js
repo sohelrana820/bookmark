@@ -12,7 +12,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
             backdrop: true,
             windowClass: 'modal',
             controller: function ($scope, $modalInstance, $log, user) {
-                $scope.createBoard = function(board) {
+                $scope.createBoard = function (board) {
                     $modalInstance.dismiss('cancel');
                     $http({
                         url: 'boards/add',
@@ -44,8 +44,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
     function getBoards() {
         blockUI.start();
         $http.get('boards/lists?page=' + $scope.currentPage + '&size=' + $scope.pageSize + '&search=' + $scope.query)
-            .success(function(res)
-            {
+            .success(function (res) {
                 $scope.activity = [];
                 $scope.totalItems = res.count;
                 $scope.startItem = ($scope.currentPage - 1) * $scope.pageSize + 1;
@@ -61,25 +60,24 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
         );
     }
 
-    $scope.pageChanged = function(currentPage) {
+    $scope.pageChanged = function (currentPage) {
         $scope.currentPage = currentPage;
         getBoards();
     }
 
-    $scope.pageSizeChanged = function(pageSize) {
+    $scope.pageSizeChanged = function (pageSize) {
         $scope.pageSize = pageSize;
         $scope.currentPage = 1;
         getBoards();
     }
 
-    $scope.searchBoard = function(query) {
+    $scope.searchBoard = function (query) {
         $scope.query = query;
         $scope.currentPage = 1;
         getBoards();
     }
 
-
-    $scope.removeBoard = function(boardID) {
+    $scope.removeBoard = function (boardID) {
         $http({
             url: 'boards/removeBoard',
             method: "POST",
@@ -95,8 +93,8 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
         getBoards();
     };
 
-    $scope.editBoard = function(boardID) {
-        $scope.board ;
+    $scope.editBoard = function (boardID) {
+        $scope.board;
         $modal.open({
             templateUrl: 'editBoard.html',
             backdrop: true,
@@ -117,11 +115,9 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
                         toastr.error('Sorry, something went wrong');
                     });
 
+                $scope.editBoard = function (board) {
 
-                $scope.editBoard = function(board) {
-
-                    if($scope.board.id)
-                    {
+                    if ($scope.board.id) {
                         board.id = $scope.board.id;
                         $modalInstance.dismiss('cancel');
                         $http({
@@ -131,11 +127,10 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .success(function (response, status, headers, config) {
-                                if(response == 1)
-                                {
+                                if (response == 1) {
                                     toastr.success('Board has been updated successfully');
                                 }
-                                else{
+                                else {
                                     toastr.error('Sorry, something went wrong');
                                 }
                             })
