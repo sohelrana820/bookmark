@@ -42,8 +42,9 @@ class BoardsController extends AppController
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($uuid)
     {
+        $id = $this->Boards->getIDbyUUID($uuid);
         $board = $this->Boards->get($id, [
             'contain' => ['Users']
         ]);
