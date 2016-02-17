@@ -149,9 +149,7 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
 
 
     $scope.editBoard = function(boardID) {
-
         $scope.board ;
-
         $modal.open({
             templateUrl: 'editBoard.html',
             backdrop: true,
@@ -167,10 +165,13 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
                     .success(function (response, status, headers, config) {
                         $scope.board = response;
 
-                    }
-                );
+                    })
+                    .error(function (response, status, headers, config) {
+                        toastr.error('Sorry, something went wrong');
+                    });
 
                 $scope.editBoard = function(board) {
+                    console.log(board);
                     $modalInstance.dismiss('cancel');
                     $http({
                         url: 'boards/edit',
@@ -192,6 +193,11 @@ app.controller('BoardController', ['$scope', '$filter', '$http', 'blockUI', '$mo
                         });
                     getBoards();
                 };
+            },
+            resolve: {
+                user: function () {
+                    return $scope.user;
+                }
             }
         });
     };
