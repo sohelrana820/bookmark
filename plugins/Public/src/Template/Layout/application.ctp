@@ -2,7 +2,7 @@
 <html lang="en" ng-app="application">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $this->fetch('title');?></title>
+    <title><?php echo $this->fetch('title');?> - <?php echo $title; ?></title>
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

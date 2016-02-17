@@ -1,4 +1,4 @@
-<?php echo $this->assign('title', 'New User'); ?>
+<?php echo $this->assign('title', 'My Boards'); ?>
 
 <div ng-controller="BoardController as BoardCtrl">
 
@@ -92,7 +92,7 @@ echo $this->Html->script(array('angular-block-ui'));
 echo $this->Html->script(array('toastr.min'));
 echo $this->Html->script(array('truncate'));
 echo $this->Html->script(array('angular-messages'));
-echo $this->Html->script(array('controller/bookmark'));
+echo $this->Html->script(array('controller/board'));
 $this->end();
 ?>
 
