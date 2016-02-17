@@ -1,18 +1,16 @@
 <?php echo $this->assign('title', 'New User'); ?>
 
-    <div class="page-title">
-        <span class="title">Bookmark</span>
-        <div class="description">Provide all information for adding  new user</div>
+    <div>
+        <h1 class="header pull-left">My Resources</h1>
+        <button class="pull-right btn btn-raised btn-primary" ng-click="open()">New Resource</button>
     </div>
+    <div class="clearfix"></div>
+    <hr class="divider"/>
+    <br/>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        Bookmark
-                    </div>
-                </div>
                 <div class="card-body">
                     <div ng-controller="BookmarkController as bookmarkCtrl">
                         <div>
@@ -53,19 +51,20 @@
 
 <?php
 $this->start('cssTop');
-echo $this->Html->css(array('select2.min', 'datepicker','all'));
+echo $this->Html->css(array('angular-block'));
+echo $this->Html->css(array('toaster.min.css'));
 $this->end();
-
-$this->start('jsTop');
-echo $this->Html->script(array('country'));
-$this->end();
-
-$this->start('jsBottom');
-echo $this->Html->script(['select2.full.min', 'datepicker']);
 ?>
 
-    <script language="javascript">
-        populateCountries("country", "state");
-    </script>
-
-<?php $this->end(); ?>
+<?php
+$this->start('jsBottom');
+echo $this->Html->script(array('angular'));
+echo $this->Html->script(array('ui-bootstrap-tpls-0.12.0.js'));
+echo $this->Html->script(array('application'));
+echo $this->Html->script(array('angular-block-ui'));
+echo $this->Html->script(array('toastr.min'));
+echo $this->Html->script(array('truncate'));
+echo $this->Html->script(array('angular-messages'));
+echo $this->Html->script(array('controller/board'));
+$this->end();
+?>

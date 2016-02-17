@@ -16,6 +16,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.html" id="services">Category <span class="caret"></span></a></li>
                 <li>
+                    <?php echo $this->Html->link('My Bookmark', ['controller' => 'Resources', 'action' => 'index']);?>
+                </li>
+                <li>
                     <?php echo $this->Html->link('My Boards', ['controller' => 'boards', 'action' => 'index']);?>
                 </li>
                 <li class="dropdown">

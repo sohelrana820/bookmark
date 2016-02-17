@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Symfony\Component\DomCrawler\Crawler;
 use Cake\Utility\Text;
+use Cake\Event\Event;
 
 /**
  * Resources Controller
@@ -12,6 +13,14 @@ use Cake\Utility\Text;
  */
 class ResourcesController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()
+            ->layout('application')
+            ->theme('Public');
+    }
 
     /**
      * Index method
