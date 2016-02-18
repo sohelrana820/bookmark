@@ -18,7 +18,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelRemoveModal()">×</button>
-                <h4 class="modal-title">New Board</h4>
+                <h4 class="modal-title">New Resource</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -45,7 +45,7 @@
                                     <p class="lead">{{resourceDetails.content}}</p>
                                 </div>
 
-                                <label for="i53" class="control-label">Boards</label>
+                                <label for="i53" class="control-label">Select Boards</label>
                                 <div class="form-group label-floating is-empty">
                                     <select ng-model="resource.BoardsIds" multiple="multiple" name="boards[_ids][]" class="form-control" id="i53">
                                         <?php foreach($boards as $board => $value): ?>
@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
 
-                                <label for="i54" class="control-label">Category</label>
+                                <label for="i54" class="control-label">Select Category</label>
                                 <div class="form-group label-floating is-empty">
                                     <select ng-model="resource.CategoriesIds"  multiple="multiple" name="boards[_ids][]" class="form-control" id="i54">
                                         <?php foreach($categories as $category => $value): ?>
@@ -71,11 +71,6 @@
                                                         <div ng-message="required">Label must be required required</div>
                                                     </div>
                                                 </span>
-                                </div>
-
-                                <label for="tags" class="control-label">Tags</label>
-                                <div class="form-group label-floating is-empty">
-                                    <input id="tags" ng-model="resource.tags" type="text" class="tags" />
                                 </div>
 
                                 <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
