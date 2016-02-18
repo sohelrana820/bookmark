@@ -1,4 +1,4 @@
- var app = angular.module('application', ['ui.bootstrap', 'blockUI', 'truncate', 'ngMessages']);
+ var app = angular.module('application', ['ui.bootstrap', 'truncate', 'ngMessages']);
 
 app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 
@@ -9,7 +9,7 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', function ($s
     $scope.getUrlResources = function (url) {
         if(url && url != 'undefined'){
             $scope.isAjaxCalled = true;
-            $scope.previewEnable = true;
+            //$scope.previewEnable = true;
 
             $http.get('resources/getRerouces?url=' + url)
                 .success(function(response)
