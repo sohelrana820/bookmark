@@ -35,14 +35,16 @@ class ResourcesController extends AppController
         $this->set('resources', $this->paginate($this->Resources));
         $this->set('_serialize', ['resources']);
 
+        $categories = TableRegistry::get('Categories')->find('threaded')->toArray();
+        $this->set('categories', $categories);
+
         $users = $this->Resources->Users->find('list', ['limit' => 200]);
         $boards = $this->Resources->Boards->find('list', ['limit' => 200]);
         $categories = $this->Resources->Categories->find('list', ['limit' => 200]);
         $this->set(compact('resource', 'users', 'boards', 'categories'));
         $this->set('_serialize', ['resource']);
 
-        $categories = TableRegistry::get('Categories')->find('threaded')->toArray();
-        $this->set('categories', $categories);
+
     }
 
     /**

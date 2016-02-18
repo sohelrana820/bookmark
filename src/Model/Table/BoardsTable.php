@@ -55,9 +55,6 @@ class BoardsTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
 
-        $validator
-            ->requirePresence('uuid', 'create')
-            ->notEmpty('uuid');
 
         $validator
             ->requirePresence('name', 'create')
@@ -65,11 +62,6 @@ class BoardsTable extends Table
 
         $validator
             ->allowEmpty('description');
-
-        $validator
-            ->add('status', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
 
         return $validator;
     }
