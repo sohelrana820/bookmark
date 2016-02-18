@@ -10,74 +10,93 @@
     <hr class="divider"/>
     <br/>
 
-    <div class="well page">
-        <div>
-            <div class="form-group label-floating is-empty">
-                <label for="i5i" class="control-label">Paste your url</label>
-                <input id="i5i" type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)">
+</div>
+
+
+<script type="text/ng-template" id="createResourceModal.html">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelRemoveModal()">×</button>
+                <h4 class="modal-title">New Board</h4>
             </div>
+            <div class="modal-body">
+                <div>
+                    <div class="form-group label-floating is-empty">
+                        <label for="i5i" class="control-label">Paste your url</label>
+                        <input id="i5i" type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)">
+                    </div>
 
-            <div class="row text-center" ng-show="isAjaxCalled">
-                <?php echo $this->Html->image('ajax.gif');?>
-            </div>
+                    <div class="row text-center" ng-show="isAjaxCalled">
+                        <?php echo $this->Html->image('ajax.gif');?>
+                    </div>
 
-            <div class="row" ng-show="previewEnable">
-                <form name="addNewResourceForm" ng-submit="createResources(resource)">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <h3>{{resourceDetails.title}}</h3>
-                        </div>
+                    <div class="row" ng-show="previewEnable">
+                        <form name="addNewResourceForm" ng-submit="createResources(resource)">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <h3>{{resourceDetails.title}}</h3>
+                                </div>
 
-                        <div class="form-group">
-                            <div class="preview_img text-center">
-                                <img class="img-thumbnail"src="{{resourceDetails.img}}">
-                            </div>
-                            <p class="lead">{{resourceDetails.content}}</p>
-                        </div>
+                                <div class="form-group">
+                                    <div class="preview_img text-center">
+                                        <img class="img-thumbnail"src="{{resourceDetails.img}}">
+                                    </div>
+                                    <p class="lead">{{resourceDetails.content}}</p>
+                                </div>
 
-                        <label for="i53" class="control-label">Boards</label>
-                        <div class="form-group label-floating is-empty">
-                            <select ng-model="resource.BoardsIds" multiple="multiple" name="boards[_ids][]" class="form-control" id="i53">
-                                <?php foreach($boards as $board => $value): ?>
-                                    <option value="<?php echo $board;?>"><?php echo $value;?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                                <label for="i53" class="control-label">Boards</label>
+                                <div class="form-group label-floating is-empty">
+                                    <select ng-model="resource.BoardsIds" multiple="multiple" name="boards[_ids][]" class="form-control" id="i53">
+                                        <?php foreach($boards as $board => $value): ?>
+                                            <option value="<?php echo $board;?>"><?php echo $value;?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
 
-                        <label for="i54" class="control-label">Category</label>
-                        <div class="form-group label-floating is-empty">
-                            <select ng-model="resource.CategoriesIds"  multiple="multiple" name="boards[_ids][]" class="form-control" id="i54">
-                                <?php foreach($categories as $category => $value): ?>
-                                    <option value="<?php echo $category;?>"><?php echo $value;?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                                <label for="i54" class="control-label">Category</label>
+                                <div class="form-group label-floating is-empty">
+                                    <select ng-model="resource.CategoriesIds"  multiple="multiple" name="boards[_ids][]" class="form-control" id="i54">
+                                        <?php foreach($categories as $category => $value): ?>
+                                            <option value="<?php echo $category;?>"><?php echo $value;?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
 
-                        <div class="form-group label-floating is-empty">
-                            <label for="i55" class="control-label">Custom Label</label>
-                            <input name="label" ng-model="resource.label" class="form-control" id="i55">
+                                <div class="form-group label-floating is-empty">
+                                    <label for="i55" class="control-label">Custom Label</label>
+                                    <input name="label" ng-model="resource.label" class="form-control" id="i55">
                                                 <span class="material-input help-desk-error">
                                                     <div ng-messages="addNewResourceForm.label.$error" ng-if="addNewResourceForm.label.$touched">
                                                         <div ng-message="required">Label must be required required</div>
                                                     </div>
                                                 </span>
-                        </div>
+                                </div>
 
-                        <label for="tags" class="control-label">Tags</label>
-                        <div class="form-group label-floating is-empty">
-                            <input id="tags" ng-model="resource.tags" type="text" class="tags" />
-                        </div>
+                                <label for="tags" class="control-label">Tags</label>
+                                <div class="form-group label-floating is-empty">
+                                    <input id="tags" ng-model="resource.tags" type="text" class="tags" />
+                                </div>
 
-                        <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
+                                <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
 
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="cancelRemoveModal()" type="button" class="btn btn-primary" data-dismiss="modal">
+                    Dismiss
+                    <div class="ripple-container">
+                        <div class="ripple ripple-on ripple-out" style="left: 32.1562px; top: 31px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div>
+                        <div class="ripple ripple-on ripple-out" style="left: 50.1562px; top: 19px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
-
-</div>
-
+</script>
 
 
 
