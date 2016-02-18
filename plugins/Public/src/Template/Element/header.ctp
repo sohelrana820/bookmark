@@ -16,7 +16,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.html" id="services">Category <span class="caret"></span></a></li>
                 <li>
-                    <?php echo $this->Html->link('My Bookmark', ['controller' => 'Resources', 'action' => 'index']);?>
+                    <?php echo $this->Html->link('My Resources', ['controller' => 'Resources', 'action' => 'index']);?>
                 </li>
                 <li>
                     <?php echo $this->Html->link('My Boards', ['controller' => 'boards', 'action' => 'index']);?>
@@ -50,24 +50,42 @@
     <!-- UI Content -->
     <div class="ui-content bg-lblue">
         <!-- Container fluid -->
-        <!--<div class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
-                <?php /*foreach($categories as $category):*/?>
+                <?php  foreach($categories as $category):?>
                 <div class="col-md-3 col-sm-3 col-xs-6 col">
                     <!-- UI Item -->
                     <div class="ui-item">
                         <!-- Heading -->
-                        <h4><?php /*echo $category->name;*/?></h4>
+                        <h4>
+                            <?php
+                            if(isset($category->name))
+                            {
+                                echo $category->name;
+                            }
+                            ?>
+                        </h4>
                         <ul class="list-unstyled">
-                            <?php /*foreach($category->children as $children):*/?>
-                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; <?php /*echo $children->name;*/?></a></li>
-                            <?php /*endforeach; */?>
+                            <?php if($category->children):?>
+                            <?php foreach($category->children as $children):?>
+                            <li>
+                                <a href="#">
+                                    <?php
+                                    if(isset($children->name))
+                                    {
+                                        echo $children->name;
+                                    }
+                                    ?>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
+                            <?php endif;?>
                         </ul>
                     </div>
                 </div>
-                <?php /*endforeach;*/?>
+                <?php endforeach;?>
             </div>
-        </div>-->
+        </div>
         <!--/ Container fluid -->
     </div>
     <!-- /UI Content -->

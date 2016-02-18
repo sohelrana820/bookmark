@@ -2,8 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Cake\Event\Event;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -39,6 +40,9 @@ class ResourcesController extends AppController
         $categories = $this->Resources->Categories->find('list', ['limit' => 200]);
         $this->set(compact('resource', 'users', 'boards', 'categories'));
         $this->set('_serialize', ['resource']);
+
+        $categories = TableRegistry::get('Categories')->find('threaded')->toArray();
+        $this->set('categories', $categories);
     }
 
     /**
