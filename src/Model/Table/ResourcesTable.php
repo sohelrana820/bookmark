@@ -62,15 +62,6 @@ class ResourcesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('uuid', 'create')
-            ->notEmpty('uuid');
-
-        $validator
-            ->add('status', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
-        $validator
             ->requirePresence('title', 'create')
             ->notEmpty('title');
 

@@ -13,48 +13,78 @@
             <div class="well page">
                 <div ng-controller="BookmarkController as bookmarkCtrl">
 
-                    <div class="clearfix">
-                        <div class="form-group label-floating is-empty">
-                        <label for="i5i" class="control-label">Paste your url</label>
-                        <input id="i5i" type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)">
-                    </div>
+                    <form name="addNewResourceForm" ng-submit="createResources(resource)">
 
-                    <div class="form-group label-floating is-empty">
-                        <label for="i52" class="control-label">Paste your url</label>
-                        <select class="form-control" id="i52">
-                            <?php foreach($boards as $board => $value): ?>
-                                <option value="<?php echo $board;?>"><?php echo $value;?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                        <div class="clearfix">
 
+                            <div class="form-group label-floating is-empty">
+                                <label for="i5i" class="control-label">Paste your url</label>
+                                <input id="i5i" type="text" class="form-control" ng-model="url" ng-blur="getUrlResources(url)">
+                            </div>
 
+                            <label for="i53" class="control-label">Boards</label>
+                            <div class="form-group label-floating is-empty">
+                                <select ng-model="resource.BoardsIds" multiple="multiple" name="boards[_ids][]" class="form-control" id="i53">
+                                    <?php foreach($boards as $board => $value): ?>
+                                        <option value="<?php echo $board;?>"><?php echo $value;?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-                    <div class="row" ng-show="previewEnable">
-                        <div class="col-lg-12">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">Bookmark Preview</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <h3 ng-model="urlTitle">{{resourceDetails.title}}</h3>
+                            <label for="i54" class="control-label">Category</label>
+                            <div class="form-group label-floating is-empty">
+                                <select ng-model="resource.CategoriesIds"  multiple="multiple" name="boards[_ids][]" class="form-control" id="i54">
+                                    <?php foreach($categories as $category => $value): ?>
+                                        <option value="<?php echo $category;?>"><?php echo $value;?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group label-floating is-empty">
+                                <label for="i55" class="control-label">Custom Label</label>
+                                <input name="label" ng-model="resource.label" class="form-control" id="i55">
+                                <span class="material-input help-desk-error">
+                                    <div ng-messages="addNewResourceForm.label.$error" ng-if="addNewResourceForm.label.$touched">
+                                        <div ng-message="required">Label must be required required</div>
                                     </div>
+                                </span>
+                            </div>
 
-                                    <div class="form-group">
-                                        <div class="preview_img text-center">
-                                            <img class="img-thumbnail" ng-model="urlImg" src="{{resourceDetails.img}}">
+
+                            <label for="tags" class="control-label">Tags</label>
+                            <div class="form-group label-floating is-empty">
+                                <input id="tags" ng-model="resource.tags" type="text" class="tags" />
+                            </div>
+
+
+                            <div class="row" ng-show="previewEnable">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">Bookmark Preview</h4>
                                         </div>
-                                        <p class="lead" ng-model="urlDescription">{{resourceDetails.content}}</p>
-                                    </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <h3>{{resourceDetails.title}}</h3>
+                                            </div>
 
-                                    <div class="form-group">
-                                        <button class="btn btn-info btn-lg" ng-click="saveResources()">Save as Bookmark</button>
+                                            <div class="form-group">
+                                                <div class="preview_img text-center">
+                                                    <img class="img-thumbnail"src="{{resourceDetails.img}}">
+                                                </div>
+                                                <p class="lead">{{resourceDetails.content}}</p>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button class="btn btn-info btn-lg">Save as Bookmark</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -65,6 +95,7 @@
 $this->start('cssTop');
 echo $this->Html->css(array('angular-block'));
 echo $this->Html->css(array('toaster.min.css'));
+echo $this->Html->css(array('jquery.tagsinput'));
 $this->end();
 ?>
 
@@ -78,5 +109,12 @@ echo $this->Html->script(array('toastr.min'));
 echo $this->Html->script(array('truncate'));
 echo $this->Html->script(array('angular-messages'));
 echo $this->Html->script(array('controller/board'));
-$this->end();
+echo $this->Html->script(array('jquery.tagsinput'));
 ?>
+<script type="text/javascript">
+    $(function() {
+        $('#tags').tagsInput({width:'auto'});
+    });
+</script>
+<?php $this->end(); ?>
+

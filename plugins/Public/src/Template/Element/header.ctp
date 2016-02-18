@@ -50,24 +50,24 @@
     <!-- UI Content -->
     <div class="ui-content bg-lblue">
         <!-- Container fluid -->
-        <div class="container-fluid">
+        <!--<div class="container-fluid">
             <div class="row">
-                <?php foreach($categories as $category):?>
+                <?php /*foreach($categories as $category):*/?>
                 <div class="col-md-3 col-sm-3 col-xs-6 col">
                     <!-- UI Item -->
                     <div class="ui-item">
                         <!-- Heading -->
-                        <h4><?php echo $category->name;?></h4>
+                        <h4><?php /*echo $category->name;*/?></h4>
                         <ul class="list-unstyled">
-                            <?php foreach($category->children as $children):?>
-                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; <?php echo $children->name;?></a></li>
-                            <?php endforeach; ?>
+                            <?php /*foreach($category->children as $children):*/?>
+                            <li><a href="#"><i class="fa fa-life-ring"></i> &nbsp; <?php /*echo $children->name;*/?></a></li>
+                            <?php /*endforeach; */?>
                         </ul>
                     </div>
                 </div>
-                <?php endforeach;?>
+                <?php /*endforeach;*/?>
             </div>
-        </div>
+        </div>-->
         <!--/ Container fluid -->
     </div>
     <!-- /UI Content -->

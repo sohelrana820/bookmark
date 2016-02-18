@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\Utility\Text;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Resources Controller
@@ -10,6 +13,13 @@ use App\Controller\AppController;
  */
 class ResourcesController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()
+            ->layout('application')
+            ->theme('Public');
+    }
 
     /**
      * Index method
@@ -23,6 +33,12 @@ class ResourcesController extends AppController
         ];
         $this->set('resources', $this->paginate($this->Resources));
         $this->set('_serialize', ['resources']);
+
+        $users = $this->Resources->Users->find('list', ['limit' => 200]);
+        $boards = $this->Resources->Boards->find('list', ['limit' => 200]);
+        $categories = $this->Resources->Categories->find('list', ['limit' => 200]);
+        $this->set(compact('resource', 'users', 'boards', 'categories'));
+        $this->set('_serialize', ['resource']);
     }
 
     /**
@@ -48,13 +64,35 @@ class ResourcesController extends AppController
      */
     public function add()
     {
+        $this->autoRender = false;
         $resource = $this->Resources->newEntity();
+
+        if ($this->request->is('post')) {
+            $data = (array)json_decode(file_get_contents("php://input"));
+            $data['user_id'] = $this->userID;
+            $data['uuid'] = Text::uuid();
+
+            $boardsIDs = $data['boards'];
+            unset($data['boards']);
+            $data['boards']['_ids'] = $boardsIDs;
+
+            $categoriesIDs = $data['categories'];
+            unset($data['categories']);
+            $data['categories']['_ids'] = $categoriesIDs;
+
+            $resource = $this->Resources->patchEntity($resource, $data);
+            if ($this->Resources->save($resource)) {
+                echo json_encode(1);
+            } else {
+                echo json_encode(0);
+            }
+        }
+
+       /* $resource = $this->Resources->newEntity();
         if ($this->request->is('post')) {
 
-
-            var_dump($resource);
-            var_dump($this->request->data);
-            die();
+            $this->request->data['user_id'] = $this->userID;
+            $this->request->data['uuid'] = Text::uuid();
 
             $resource = $this->Resources->patchEntity($resource, $this->request->data);
             if ($this->Resources->save($resource)) {
@@ -64,11 +102,12 @@ class ResourcesController extends AppController
                 $this->Flash->error(__('The resource could not be saved. Please, try again.'));
             }
         }
+
         $users = $this->Resources->Users->find('list', ['limit' => 200]);
         $boards = $this->Resources->Boards->find('list', ['limit' => 200]);
         $categories = $this->Resources->Categories->find('list', ['limit' => 200]);
         $this->set(compact('resource', 'users', 'boards', 'categories'));
-        $this->set('_serialize', ['resource']);
+        $this->set('_serialize', ['resource']);*/
     }
 
     /**
@@ -116,5 +155,49 @@ class ResourcesController extends AppController
             $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function getRerouces()
+    {
+        $this->autoRender = false;
+        $url = $_GET['url'];
+        $parse = parse_url(str_replace('www.', '', $url));
+        $domain = $parse['host'];
+        if(isset($parse['scheme'])){
+            $domain = $parse['scheme'] . '://' . $parse['host'];
+        }
+        if ($url) {
+            $html = file_get_contents($url);
+            $crawler = new Crawler($html);
+
+            $title = 'Untitled';
+            $description = 'No Description found';
+            $img = 'http://store.loadedcommerce.com/images/content/noImageAvailable330.gif';
+            if ($crawler->filter('title')->text() && $crawler->filter('title')->text() != '') {
+                $title = $crawler->filter('title')->text();
+            }
+            if ($crawler->filter('body p')->first()->text() && $crawler->filter('body p')->first()->text() != '') {
+                $description = $crawler->filter('body p')->first()->text();
+            }
+            if ($crawler->filter('body img')->first()->attr('src') && $crawler->filter('body img')->first()->attr(
+                    'src'
+                ) != ''
+            ) {
+                $img = $crawler->filter('body img')->first()->attr('src');
+                if( strpos($img, 'htt') !== false ){
+                    $img = $img;
+                }
+                else{
+                    $img = $domain . $img;
+                }
+            }
+            $response = array(
+                'url' => $url,
+                'title' => $title,
+                'content' => $description,
+                'img' => $img,
+            );
+            echo json_encode($response);
+        }
     }
 }
