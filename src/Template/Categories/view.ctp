@@ -9,6 +9,8 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Parent Categories'), ['controller' => 'Categories', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Parent Category'), ['controller' => 'Categories', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Resources'), ['controller' => 'Resources', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Resource'), ['controller' => 'Resources', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="categories view large-9 medium-8 columns content">
@@ -35,6 +37,14 @@
             <td><?= $this->Number->format($category->id) ?></td>
         </tr>
         <tr>
+            <th><?= __('Lft') ?></th>
+            <td><?= $this->Number->format($category->lft) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Rght') ?></th>
+            <td><?= $this->Number->format($category->rght) ?></td>
+        </tr>
+        <tr>
             <th><?= __('Status') ?></th>
             <td><?= $this->Number->format($category->status) ?></td>
         </tr>
@@ -55,6 +65,8 @@
                 <th><?= __('Id') ?></th>
                 <th><?= __('User Id') ?></th>
                 <th><?= __('Parent Id') ?></th>
+                <th><?= __('Lft') ?></th>
+                <th><?= __('Rght') ?></th>
                 <th><?= __('Name') ?></th>
                 <th><?= __('Slug') ?></th>
                 <th><?= __('Status') ?></th>
@@ -67,6 +79,8 @@
                 <td><?= h($childCategories->id) ?></td>
                 <td><?= h($childCategories->user_id) ?></td>
                 <td><?= h($childCategories->parent_id) ?></td>
+                <td><?= h($childCategories->lft) ?></td>
+                <td><?= h($childCategories->rght) ?></td>
                 <td><?= h($childCategories->name) ?></td>
                 <td><?= h($childCategories->slug) ?></td>
                 <td><?= h($childCategories->status) ?></td>
@@ -78,6 +92,48 @@
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Categories', 'action' => 'edit', $childCategories->id]) ?>
 
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Categories', 'action' => 'delete', $childCategories->id], ['confirm' => __('Are you sure you want to delete # {0}?', $childCategories->id)]) ?>
+
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Resources') ?></h4>
+        <?php if (!empty($category->resources)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Uuid') ?></th>
+                <th><?= __('User Id') ?></th>
+                <th><?= __('Status') ?></th>
+                <th><?= __('Title') ?></th>
+                <th><?= __('Url') ?></th>
+                <th><?= __('Img') ?></th>
+                <th><?= __('Content') ?></th>
+                <th><?= __('Created') ?></th>
+                <th><?= __('Modified') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($category->resources as $resources): ?>
+            <tr>
+                <td><?= h($resources->id) ?></td>
+                <td><?= h($resources->uuid) ?></td>
+                <td><?= h($resources->user_id) ?></td>
+                <td><?= h($resources->status) ?></td>
+                <td><?= h($resources->title) ?></td>
+                <td><?= h($resources->url) ?></td>
+                <td><?= h($resources->img) ?></td>
+                <td><?= h($resources->content) ?></td>
+                <td><?= h($resources->created) ?></td>
+                <td><?= h($resources->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Resources', 'action' => 'view', $resources->id]) ?>
+
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Resources', 'action' => 'edit', $resources->id]) ?>
+
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Resources', 'action' => 'delete', $resources->id], ['confirm' => __('Are you sure you want to delete # {0}?', $resources->id)]) ?>
 
                 </td>
             </tr>

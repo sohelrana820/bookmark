@@ -6,6 +6,8 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Parent Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Parent Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Resources'), ['controller' => 'Resources', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Resource'), ['controller' => 'Resources', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="categories form large-9 medium-8 columns content">
@@ -15,9 +17,12 @@
         <?php
             echo $this->Form->input('user_id', ['options' => $users]);
             echo $this->Form->input('parent_id', ['options' => $parentCategories, 'empty' => true]);
+            echo $this->Form->input('lft');
+            echo $this->Form->input('rght');
             echo $this->Form->input('name');
             echo $this->Form->input('slug');
             echo $this->Form->input('status');
+            echo $this->Form->input('resources._ids', ['options' => $resources]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

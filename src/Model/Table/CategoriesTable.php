@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $ParentCategories
  * @property \Cake\ORM\Association\HasMany $ChildCategories
+ * @property \Cake\ORM\Association\BelongsToMany $Resources
  */
 class CategoriesTable extends Table
 {
@@ -46,6 +47,11 @@ class CategoriesTable extends Table
             'className' => 'Categories',
             'foreignKey' => 'parent_id'
         ]);
+        $this->belongsToMany('Resources', [
+            'foreignKey' => 'category_id',
+            'targetForeignKey' => 'resource_id',
+            'joinTable' => 'categories_resources'
+        ]);
     }
 
     /**
@@ -59,6 +65,16 @@ class CategoriesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->add('lft', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('lft', 'create')
+            ->notEmpty('lft');
+
+        $validator
+            ->add('rght', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('rght', 'create')
+            ->notEmpty('rght');
 
         $validator
             ->requirePresence('name', 'create')

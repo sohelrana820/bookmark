@@ -18,7 +18,11 @@ class BoardsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.boards',
         'app.users',
-        'app.profiles'
+        'app.profiles',
+        'app.resources',
+        'app.boards_resources',
+        'app.categories',
+        'app.categories_resources'
     ];
 
     /**

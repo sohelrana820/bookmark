@@ -19,7 +19,11 @@ class CategoriesTableTest extends TestCase
     public $fixtures = [
         'app.categories',
         'app.users',
-        'app.profiles'
+        'app.profiles',
+        'app.resources',
+        'app.boards',
+        'app.boards_resources',
+        'app.categories_resources'
     ];
 
     /**

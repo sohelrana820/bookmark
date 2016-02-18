@@ -19,7 +19,11 @@ class ResourcesTableTest extends TestCase
     public $fixtures = [
         'app.resources',
         'app.users',
-        'app.profiles'
+        'app.profiles',
+        'app.boards',
+        'app.boards_resources',
+        'app.categories',
+        'app.categories_resources'
     ];
 
     /**

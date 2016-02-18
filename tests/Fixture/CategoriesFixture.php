@@ -20,6 +20,8 @@ class CategoriesFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 3, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'parent_id' => ['type' => 'integer', 'length' => 3, 'unsigned' => true, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'lft' => ['type' => 'integer', 'length' => 3, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'rght' => ['type' => 'integer', 'length' => 3, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'name' => ['type' => 'string', 'length' => 80, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'slug' => ['type' => 'string', 'length' => 80, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'status' => ['type' => 'integer', 'length' => 1, 'unsigned' => false, 'null' => false, 'default' => '1', 'comment' => 'Status: 1 =active, 2 = Inactive', 'precision' => null, 'autoIncrement' => null],
@@ -51,11 +53,13 @@ class CategoriesFixture extends TestFixture
             'id' => 1,
             'user_id' => 1,
             'parent_id' => 1,
+            'lft' => 1,
+            'rght' => 1,
             'name' => 'Lorem ipsum dolor sit amet',
             'slug' => 'Lorem ipsum dolor sit amet',
             'status' => 1,
-            'created' => '2016-02-17 21:15:21',
-            'modified' => '2016-02-17 21:15:21'
+            'created' => '2016-02-18 19:24:57',
+            'modified' => '2016-02-18 19:24:57'
         ],
     ];
 }

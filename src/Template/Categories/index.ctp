@@ -4,6 +4,8 @@
         <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Resources'), ['controller' => 'Resources', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Resource'), ['controller' => 'Resources', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="categories index large-9 medium-8 columns content">
@@ -14,10 +16,10 @@
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('user_id') ?></th>
                 <th><?= $this->Paginator->sort('parent_id') ?></th>
+                <th><?= $this->Paginator->sort('lft') ?></th>
+                <th><?= $this->Paginator->sort('rght') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
                 <th><?= $this->Paginator->sort('slug') ?></th>
-                <th><?= $this->Paginator->sort('status') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -27,10 +29,10 @@
                 <td><?= $this->Number->format($category->id) ?></td>
                 <td><?= $category->has('user') ? $this->Html->link($category->user->id, ['controller' => 'Users', 'action' => 'view', $category->user->id]) : '' ?></td>
                 <td><?= $category->has('parent_category') ? $this->Html->link($category->parent_category->name, ['controller' => 'Categories', 'action' => 'view', $category->parent_category->id]) : '' ?></td>
+                <td><?= $this->Number->format($category->lft) ?></td>
+                <td><?= $this->Number->format($category->rght) ?></td>
                 <td><?= h($category->name) ?></td>
                 <td><?= h($category->slug) ?></td>
-                <td><?= $this->Number->format($category->status) ?></td>
-                <td><?= h($category->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>

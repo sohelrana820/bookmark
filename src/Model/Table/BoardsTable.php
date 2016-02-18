@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * Boards Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Resources
  */
 class BoardsTable extends Table
 {
@@ -35,6 +36,11 @@ class BoardsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsToMany('Resources', [
+            'foreignKey' => 'board_id',
+            'targetForeignKey' => 'resource_id',
+            'joinTable' => 'boards_resources'
+        ]);
     }
 
     /**
@@ -49,7 +55,7 @@ class BoardsTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
 
-        /*$validator
+        $validator
             ->requirePresence('uuid', 'create')
             ->notEmpty('uuid');
 
@@ -58,13 +64,12 @@ class BoardsTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->requirePresence('description', 'create')
-            ->notEmpty('description');
+            ->allowEmpty('description');
 
         $validator
             ->add('status', 'valid', ['rule' => 'numeric'])
             ->requirePresence('status', 'create')
-            ->notEmpty('status');*/
+            ->notEmpty('status');
 
         return $validator;
     }
@@ -76,22 +81,9 @@ class BoardsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    /*public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
-    }*/
-
-    public function getIDbyUUID($uuid)
-    {
-        $result = $this->find()
-            ->where(['Boards.uuid' => $uuid])
-            ->first();
-
-        if($result)
-        {
-            return $result->id;
-        }
-        return null;
     }
 }
