@@ -227,7 +227,7 @@ class ResourcesController extends AppController
 
         if(isset($this->request->query['search']) && $this->request->query['search'])
         {
-            $conditions = array_merge($conditions, array('Resources.name LIKE' => '%'. $this->request->query['search'] .'%'));
+            $conditions = array_merge($conditions, array('Resources.title LIKE' => '%'. $this->request->query['search'] .'%'));
         }
 
         $resources = $this->Resources->find('all',
