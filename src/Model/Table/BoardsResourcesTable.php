@@ -1,20 +1,19 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Resource;
+use App\Model\Entity\BoardsResource;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Resources Model
+ * BoardsResources Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsToMany $Boards
- * @property \Cake\ORM\Association\BelongsToMany $Categories
+ * @property \Cake\ORM\Association\BelongsTo $Boards
+ * @property \Cake\ORM\Association\BelongsTo $Resources
  */
-class ResourcesTable extends Table
+class BoardsResourcesTable extends Table
 {
 
     /**
@@ -27,27 +26,19 @@ class ResourcesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('resources');
-        $this->displayField('title');
+        $this->table('boards_resources');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+        $this->belongsTo('Boards', [
+            'foreignKey' => 'board_id',
             'joinType' => 'INNER'
         ]);
-
-        $this->belongsToMany('Boards', [
+        $this->belongsTo('Resources', [
             'foreignKey' => 'resource_id',
-            'targetForeignKey' => 'board_id',
-            'joinTable' => 'boards_resources'
-        ]);
-
-        $this->belongsToMany('Categories', [
-            'foreignKey' => 'resource_id',
-            'targetForeignKey' => 'category_id',
-            'joinTable' => 'categories_resources'
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -64,18 +55,9 @@ class ResourcesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('title', 'create')
-            ->notEmpty('title');
-
-        $validator
-            ->allowEmpty('url');
-
-        $validator
-            ->requirePresence('img', 'create')
-            ->notEmpty('img');
-
-        $validator
-            ->allowEmpty('content');
+            ->add('status', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('status', 'create')
+            ->notEmpty('status');
 
         return $validator;
     }
@@ -89,7 +71,8 @@ class ResourcesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['board_id'], 'Boards'));
+        $rules->add($rules->existsIn(['resource_id'], 'Resources'));
         return $rules;
     }
 }

@@ -7,6 +7,34 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', 'blockUI', '
     $scope.isAjaxCalled = false;
 
 
+    $scope.currentPage = 1;
+    $scope.totalItems = 0;
+    $scope.pageSize = 6;
+    $scope.query = '';
+    getResources();
+
+    function getResources() {
+        blockUI.start();
+        $http.get('resources/lists?page=' + $scope.currentPage + '&size=' + $scope.pageSize + '&search=' + $scope.query)
+            .success(function (res) {
+                $scope.activity = [];
+                $scope.totalItems = res.count;
+                $scope.startItem = ($scope.currentPage - 1) * $scope.pageSize + 1;
+
+                $scope.endItem = $scope.currentPage * $scope.pageSize;
+                if (($scope.currentPage * $scope.pageSize) >= $scope.totalItems) {
+                    $scope.endItem = $scope.totalItems;
+                }
+
+                console.log(res);
+
+                $scope.resources = res.resources;
+                blockUI.stop();
+            }
+        );
+    }
+
+
 
 
     $scope.open = function () {
@@ -71,5 +99,8 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', 'blockUI', '
             }
         });
     };
+
+
+
 
 }]);

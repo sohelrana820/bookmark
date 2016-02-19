@@ -47,6 +47,7 @@ class CategoriesTable extends Table
             'className' => 'Categories',
             'foreignKey' => 'parent_id'
         ]);
+
         $this->belongsToMany('Resources', [
             'foreignKey' => 'category_id',
             'targetForeignKey' => 'resource_id',

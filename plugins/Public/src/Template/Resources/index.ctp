@@ -10,6 +10,31 @@
     <hr class="divider"/>
     <br/>
 
+    <div class="col-lg-4 animate-repeat" ng-repeat="resource in resources | filter:query">
+        <div class="brand-panel panel panel-primary animate-repeat">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {{resource.title}}
+                </h3>
+            </div>
+            <div class="panel-body">
+                <h4 class="list-group-item-heading">{{board.name}}</h4>
+                <img src="{{resource.img}}" class="img-responsive">
+                {{ resource.content | characters:400 }}
+                <div class="pull-right delete-icons">
+                    <a href="boards/view/{{board.uuid}}" class="green">
+                        <i class="fa fa-gear t-icon"></i>
+                    </a>
+                    <a ng-click="editBoard(board.id)" class="lblue">
+                        <i class="fa fa-pencil t-icon"></i>
+                    </a>
+                    <a class="red" ng-click="removeBoard(board.id)">
+                        <i class="fa fa-times t-icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

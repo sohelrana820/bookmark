@@ -98,7 +98,7 @@ class BoardsController extends AppController
             $conditions = array_merge($conditions, array('Boards.name LIKE' => '%'. $this->request->query['search'] .'%'));
         }
 
-        $vehicles = $this->Boards->find('all',
+        $boards = $this->Boards->find('all',
             [
                 'conditions' => $conditions,
                 'order' => $sortBy. ' '.$order,
@@ -112,7 +112,7 @@ class BoardsController extends AppController
             ]
         )->count();
         $result['count'] = $count;
-        $result['boards'] = $vehicles;
+        $result['boards'] = $boards;
         echo json_encode($result);
     }
 

@@ -43,8 +43,6 @@ class ResourcesController extends AppController
         $categories = $this->Resources->Categories->find('list', ['limit' => 200]);
         $this->set(compact('resource', 'users', 'boards', 'categories'));
         $this->set('_serialize', ['resource']);
-
-
     }
 
     /**
@@ -205,5 +203,49 @@ class ResourcesController extends AppController
             );
             echo json_encode($response);
         }
+    }
+
+    public function lists()
+    {
+        $this->viewBuilder()->layout('ajax');
+        $this->render(false);
+        $order = 'DESC';
+        $sortBy = 'Resources.id';
+        $limit = 5;
+        $page = 1;
+        $conditions = array();
+
+        if(isset($this->request->query['size']) && $this->request->query['size'])
+        {
+            $limit = $this->request->query['size'];
+        }
+
+        if(isset($this->request->query['page']) && $this->request->query['page'])
+        {
+            $page = $this->request->query['page'];
+        }
+
+        if(isset($this->request->query['search']) && $this->request->query['search'])
+        {
+            $conditions = array_merge($conditions, array('Resources.name LIKE' => '%'. $this->request->query['search'] .'%'));
+        }
+
+        $resources = $this->Resources->find('all',
+            [
+                'conditions' => $conditions,
+                'order' => $sortBy. ' '.$order,
+                'limit' => $limit,
+                'page' => $page,
+                'contain' => ['Categories', 'Boards']
+            ]
+        );
+        $count = $this->Resources->find('all',
+            [
+                'conditions' => $conditions,
+            ]
+        )->count();
+        $result['count'] = $count;
+        $result['resources'] = $resources;
+        echo json_encode($result);
     }
 }
