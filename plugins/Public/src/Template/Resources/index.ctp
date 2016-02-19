@@ -41,12 +41,12 @@
                 <div class="brand-panel panel panel-primary animate-repeat">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            {{resource.title}}
+                            {{resource.label}}
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <h4 class="list-group-item-heading">{{resource.label}}</h4>
-                        <img src="{{resource.img}}" class="img-responsive">
+                        <h4 class="list-group-item-heading">{{resource.title}}</h4>
+                        <img src="{{resource.img}}" class="img-responsive" alt="{{resource.title}}">
                         {{ resource.content | characters:400 }}
                         <div class="pull-right delete-icons">
                             <a href="boards/view/{{resource.uuid}}" class="green">
@@ -58,6 +58,11 @@
                             <a class="red" ng-click="removeResource(resource.id)">
                                 <i class="fa fa-times t-icon"></i>
                             </a>
+                        </div>
+                        <div>
+                            <strong>Category:</strong> <label class="label label-info">MySQL</label>, <label class="label label-info">MySQL</label>, <label class="label label-info">Javascript</label>
+                            <br/>
+                            <strong>Board:</strong> <label class="label label-info">General</label>, <label class="label label-info">Personal</label>
                         </div>
                     </div>
                 </div>
