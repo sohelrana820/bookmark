@@ -100,7 +100,32 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', 'blockUI', '
         });
     };
 
+    $scope.removeResource = function (boardID) {
+        $http({
+            url: 'resources/removeBoard',
+            method: "POST",
+            data: {id: boardID},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+            .success(function (response, status, headers, config) {
+                toastr.error('Resource has been removed successfully');
+            })
+            .error(function (response, status, headers, config) {
+                toastr.error('Sorry, something went wrong');
+            });
+        getResources();
+    };
 
 
+    $scope.searchResource = function (query) {
+        $scope.query = query;
+        $scope.currentPage = 1;
+        getResources();
+    }
 
+    $scope.pageSizeChanged = function (pageSize) {
+        $scope.pageSize = pageSize;
+        $scope.currentPage = 1;
+        getResources();
+    }
 }]);

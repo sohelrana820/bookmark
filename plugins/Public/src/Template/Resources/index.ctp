@@ -10,6 +10,25 @@
     <hr class="divider"/>
     <br/>
 
+    <div class="col-lg-2 col-sx-12">
+        <div class="form-group label-floating is-empty">
+            <label for="i52" class="control-label">Search resource</label>
+            <input id="i52" class="form-control pull-left" ng-model="query" ng-blur="searchResource(query)" />
+            <span class="material-input"></span>
+        </div>
+    </div>
+    <div class="col-lg-10 col-sx-12">
+        <div class="form-group label-floating is-empty per-page-show">
+            <label for="i53" class="control-label">Per page show</label>
+            <select id="i53" class="form-control" ng-model="pageSize" ng-change="pageSizeChanged(pageSize)">
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+            </select>
+            <span class="material-input"></span>
+        </div>
+    </div>
+
     <div class="col-lg-4 animate-repeat" ng-repeat="resource in resources | filter:query">
         <div class="brand-panel panel panel-primary animate-repeat">
             <div class="panel-heading">
@@ -18,23 +37,37 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <h4 class="list-group-item-heading">{{board.name}}</h4>
+                <h4 class="list-group-item-heading">{{resource.label}}</h4>
                 <img src="{{resource.img}}" class="img-responsive">
                 {{ resource.content | characters:400 }}
                 <div class="pull-right delete-icons">
-                    <a href="boards/view/{{board.uuid}}" class="green">
+                    <a href="boards/view/{{resource.uuid}}" class="green">
                         <i class="fa fa-gear t-icon"></i>
                     </a>
-                    <a ng-click="editBoard(board.id)" class="lblue">
+                    <a ng-click="editBoard(resource.id)" class="lblue">
                         <i class="fa fa-pencil t-icon"></i>
                     </a>
-                    <a class="red" ng-click="removeBoard(board.id)">
+                    <a class="red" ng-click="removeResource(resource.id)">
                         <i class="fa fa-times t-icon"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-12">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <div>{{endItem}} of {{totalItems}} entries</div>
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged(currentPage)" items-per-page="pageSize" max-size="3" boundary-links="true"rotate="false">
+            </pagination>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>
 
 

@@ -248,4 +248,16 @@ class ResourcesController extends AppController
         $result['resources'] = $resources;
         echo json_encode($result);
     }
+
+    public function removeBoard()
+    {
+        $this->autoRender = false;
+        $data = json_decode(file_get_contents("php://input"));
+        $resource = $this->Resources->get((int) $data->id);
+        if ($this->Resources->delete($resource)) {
+            echo json_encode(1);
+        } else {
+            echo json_encode(0);
+        }
+    }
 }
