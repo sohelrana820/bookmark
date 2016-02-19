@@ -82,6 +82,7 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', 'blockUI', '
                         });
                     $scope.previewEnable = false;
                     $modalInstance.dismiss('cancel');
+                    getResources();
                 };
                 $scope.cancelRemoveModal = function () {
                     $modalInstance.dismiss('cancel');
