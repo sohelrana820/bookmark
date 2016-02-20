@@ -42,12 +42,11 @@
                 <div class="brand-panel panel panel-primary animate-repeat">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            {{board.name}}
+                            {{board.name | characters:35}}
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <h4 class="list-group-item-heading">{{board.name}}</h4>
-                        {{ board.description | characters:400 }}
+                        {{ board.description | characters:150 }}
                         <div class="pull-right delete-icons">
                             <a href="boards/view/{{board.uuid}}" class="green">
                                 <i class="fa fa-gear t-icon"></i>

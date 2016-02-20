@@ -71,6 +71,8 @@ class AppController extends Controller
             ]
         );
         $this->loadModel('Users');
+        $this->loadModel('Categories');
+        $this->loadModel('Resources');
     }
 
     public function beforeFilter(Event $event)

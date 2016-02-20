@@ -36,7 +36,7 @@ body {
 .panel:hover .delete-icons{
     display: inline;
     position: absolute;
-    top: 63px;
+    bottom: 25px;
     right: 25px;
 }
 
@@ -54,7 +54,7 @@ body {
 }
 
 .brand-panel{
-    min-height: 365px;
+    min-height: 200px;
 }
 
 .panel-title {
