@@ -63,6 +63,8 @@
                             <strong>Category:</strong> <label class="label label-info">MySQL</label>, <label class="label label-info">MySQL</label>, <label class="label label-info">Javascript</label>
                             <br/>
                             <strong>Board:</strong> <label class="label label-info">General</label>, <label class="label label-info">Personal</label>
+                            <br/>
+                            <a href="{{resource.url}}" target="_blank">{{resource.url | characters:45}}</a>
                         </div>
                     </div>
                 </div>
