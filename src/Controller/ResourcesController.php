@@ -176,7 +176,7 @@ class ResourcesController extends AppController
 
             $title = 'Untitled';
             $description = 'No Description found';
-            $img = 'http://store.loadedcommerce.com/images/content/noImageAvailable330.gif';
+            $img = '';
             if ($crawler->filter('title')->text() && $crawler->filter('title')->text() != '') {
                 $title = $crawler->filter('title')->text();
             }
