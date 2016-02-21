@@ -38,7 +38,7 @@
             <div class="clearfix"></div>
 
             <div class="col-lg-4 animate-repeat" ng-repeat="resource in resources | filter:query">
-                <div class="brand-panel panel panel-primary animate-repeat">
+                <div class="resources-panel panel panel-primary animate-repeat">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             {{resource.label}}
@@ -56,7 +56,7 @@
 
                         {{ resource.content | characters:400 }}
                         <div class="pull-right delete-icons">
-                            <a href="boards/view/{{resource.uuid}}" class="green">
+                            <a href="resources/view/{{resource.uuid}}" class="green">
                                 <i class="fa fa-gear t-icon"></i>
                             </a>
                             <a ng-click="editBoard(resource.id)" class="lblue">
@@ -143,7 +143,7 @@
                                 <label for="i54" class="control-label">Select Category</label>
                                 <div class="form-group label-floating is-empty">
                                     <select ng-model="resource.CategoriesIds"  multiple="multiple" name="boards[_ids][]" class="form-control" id="i54">
-                                        <?php foreach($categories as $category => $value): ?>
+                                        <?php foreach($categoriesList as $category => $value): ?>
                                             <option value="<?php echo $category;?>"><?php echo $value;?></option>
                                         <?php endforeach; ?>
                                     </select>

@@ -35,6 +35,12 @@ class ResourcesController extends AppController
         ];
         $this->set('resources', $this->paginate($this->Resources));
         $this->set('_serialize', ['resources']);
+
+
+
+        $boards = $this->Resources->Boards->find('list', ['limit' => 200]);
+        $categoriesList = $this->Resources->Categories->find('list', ['limit' => 200]);
+        $this->set(compact('boards', 'categoriesList'));
     }
 
     /**
@@ -44,8 +50,10 @@ class ResourcesController extends AppController
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($uuid)
     {
+        $id = $this->Resources->getIDbyUUID($uuid);
+
         $resource = $this->Resources->get($id, [
             'contain' => ['Users', 'Boards', 'Categories']
         ]);

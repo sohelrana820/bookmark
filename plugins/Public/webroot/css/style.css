@@ -82,6 +82,10 @@ body {
     text-transform: uppercase;
     font-weight: 400;
 }
+
+.resources-panel{
+    min-height: 500px;
+}
 /** FOOTER START **/
 .footer {
     position: absolute;
