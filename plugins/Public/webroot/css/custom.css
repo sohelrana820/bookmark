@@ -23,3 +23,16 @@
     height: 100px;
     margin: 15px 0px;
 }
+
+.resource-footer-part{
+    position: absolute;
+    bottom: 40px;
+}
+
+.resources-panel .list-group-item-heading{
+    line-height: 25px;
+}
+
+.resources-panel p{
+    line-height: 22px;
+}

@@ -48,13 +48,12 @@
                         <h4 class="list-group-item-heading">{{resource.title}}</h4>
 
                         <div class="resource-thumb-img">
-                            <img ng-if="resource.img" src="{{resource.img}}" class="" alt="{{resource.title}}">
+                            <img ng-if="resource.img" src="{{resource.img}}" class="img-thumbnail" alt="{{resource.title}}">
                             <div class="row text-center" ng-hide="resource.img">
-                                <?php echo $this->Html->image('default.jpg');?>
+                                <?php echo $this->Html->image('default.jpg', ['class' => 'img-thumbnail']);?>
                             </div>
                         </div>
-
-                        {{ resource.content | characters:400 }}
+                        <p>{{ resource.content | characters:200 }}</p>
                         <div class="pull-right delete-icons">
                             <a href="resources/view/{{resource.uuid}}" class="green">
                                 <i class="fa fa-gear t-icon"></i>
@@ -66,7 +65,7 @@
                                 <i class="fa fa-times t-icon"></i>
                             </a>
                         </div>
-                        <div>
+                        <div class="resource-footer-part">
                             <div class="boards">
                                 <strong>Board:</strong>
                                 <span ng-repeat="board in resource.boards">
@@ -127,10 +126,13 @@
                                 <div class="form-group">
                                     <div class="preview_img text-center">
                                         <img class="img-thumbnail"src="{{resourceDetails.img}}">
+                                        <br/>
+                                        <br/>
                                     </div>
                                     <p class="lead">{{resourceDetails.content}}</p>
                                 </div>
 
+                                <?php if(!$boards->isEmpty()):?>
                                 <label for="i53" class="control-label">Select Boards</label>
                                 <div class="form-group label-floating is-empty">
                                     <select ng-model="resource.BoardsIds" multiple="multiple" name="boards[_ids][]" class="form-control" id="i53">
@@ -139,6 +141,7 @@
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+                                <?php endif;?>
 
                                 <label for="i54" class="control-label">Select Category</label>
                                 <div class="form-group label-floating is-empty">

@@ -76,12 +76,22 @@ class ResourcesController extends AppController
             $data['user_id'] = $this->userID;
             $data['uuid'] = Text::uuid();
 
-            $boardsIDs = $data['boards'];
-            unset($data['boards']);
-            $data['boards']['_ids'] = $boardsIDs;
+            $boardsIDs = array();
+            $categoriesIDs = array();
 
-            $categoriesIDs = $data['categories'];
-            unset($data['categories']);
+            if(isset($data['boards']))
+            {
+                $boardsIDs = $data['boards'];
+                unset($data['boards']);
+            }
+
+            if(isset($data['categories']))
+            {
+                $categoriesIDs = $data['categories'];
+                unset($data['categories']);
+            }
+
+            $data['boards']['_ids'] = $boardsIDs;
             $data['categories']['_ids'] = $categoriesIDs;
 
             $resource = $this->Resources->patchEntity($resource, $data);
@@ -185,6 +195,7 @@ class ResourcesController extends AppController
 
             $title = 'Untitled';
             $description = 'No Description found';
+            $img = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150';
 
             if ($crawler->filter('title')->text() && $crawler->filter('title')->text() != '') {
                 $title = $crawler->filter('title')->text();
@@ -192,17 +203,13 @@ class ResourcesController extends AppController
             if ($crawler->filter('body p')->first()->text() && $crawler->filter('body p')->first()->text() != '') {
                 $description = $crawler->filter('body p')->first()->text();
             }
-            if ($crawler->filter('body img')->first()->attr('src') && $crawler->filter('body img')->first()->attr(
-                    'src'
-                ) != ''
-            )
+
+            $imageDom = $crawler->filter('body img');
+            if (count($imageDom) > 0)
             {
-                $urlImg = $crawler->filter('body img')->first()->attr('src');
+                $urlImg = $imageDom->first()->attr('src');
                 if (!filter_var($urlImg, FILTER_VALIDATE_URL) === false) {
                     $img = $urlImg;
-                }
-                else {
-                    $img = '';
                 }
             }
             $response = array(
