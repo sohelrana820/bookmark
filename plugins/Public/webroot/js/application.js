@@ -47,11 +47,10 @@ app.controller('BookmarkController', ['$scope', '$filter', '$http', 'blockUI', '
                 $scope.getUrlResources = function (url) {
                     if(url && url != 'undefined'){
                         $scope.isAjaxCalled = true;
-                        //$scope.previewEnable = true;
-
                         $http.get('resources/getRerouces?url=' + url)
                             .success(function(response)
                             {
+                                console.log(response);
                                 $scope.isAjaxCalled = false;
                                 $scope.url = url;
                                 $scope.previewEnable = true;

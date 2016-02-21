@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
 use Cake\Event\Event;
+use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -163,6 +164,8 @@ class ResourcesController extends AppController
 
     public function getRerouces()
     {
+
+
         $this->autoRender = false;
         $url = $_GET['url'];
         $parse = parse_url(str_replace('www.', '', $url));
@@ -171,12 +174,19 @@ class ResourcesController extends AppController
             $domain = $parse['scheme'] . '://' . $parse['host'];
         }
         if ($url) {
-            $html = file_get_contents($url);
+
+            $client = new Client();
+            $res = $client->request('GET', $url, [
+                'auth' => []
+            ]);
+
+            $html = $res->getBody()->getContents();
             $crawler = new Crawler($html);
+
 
             $title = 'Untitled';
             $description = 'No Description found';
-            $img = '';
+
             if ($crawler->filter('title')->text() && $crawler->filter('title')->text() != '') {
                 $title = $crawler->filter('title')->text();
             }
@@ -186,13 +196,14 @@ class ResourcesController extends AppController
             if ($crawler->filter('body img')->first()->attr('src') && $crawler->filter('body img')->first()->attr(
                     'src'
                 ) != ''
-            ) {
-                $img = $crawler->filter('body img')->first()->attr('src');
-                if( strpos($img, 'htt') !== false ){
-                    $img = $img;
+            )
+            {
+                $urlImg = $crawler->filter('body img')->first()->attr('src');
+                if (!filter_var($urlImg, FILTER_VALIDATE_URL) === false) {
+                    $img = $urlImg;
                 }
-                else{
-                    $img = $domain . $img;
+                else {
+                    $img = '';
                 }
             }
             $response = array(
@@ -201,6 +212,7 @@ class ResourcesController extends AppController
                 'content' => $description,
                 'img' => $img,
             );
+
             echo json_encode($response);
         }
     }
