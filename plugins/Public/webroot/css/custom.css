@@ -14,3 +14,12 @@
 .categories label{
     margin-right: 10px;
 }
+
+.resource-thumb-img{
+    text-align: center;
+}
+
+.resource-thumb-img img{
+    height: 100px;
+    margin: 15px 0px;
+}

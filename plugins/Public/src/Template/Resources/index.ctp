@@ -46,7 +46,14 @@
                     </div>
                     <div class="panel-body">
                         <h4 class="list-group-item-heading">{{resource.title}}</h4>
-                        <img src="{{resource.img}}" class="img-responsive" alt="{{resource.title}}">
+
+                        <div class="resource-thumb-img">
+                            <img ng-if="resource.img" src="{{resource.img}}" class="" alt="{{resource.title}}">
+                            <div class="row text-center" ng-hide="resource.img">
+                                <?php echo $this->Html->image('default.jpg');?>
+                            </div>
+                        </div>
+
                         {{ resource.content | characters:400 }}
                         <div class="pull-right delete-icons">
                             <a href="boards/view/{{resource.uuid}}" class="green">
@@ -152,7 +159,7 @@
                                                 </span>
                                 </div>
 
-                                <button type="submit" class="btn btn-raised btn-primary">Save Board</button>
+                                <button type="submit" class="btn btn-raised btn-primary">Save Resource</button>
 
                             </div>
                         </form>
