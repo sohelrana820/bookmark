@@ -71,10 +71,6 @@ class ResourcesTable extends Table
             ->allowEmpty('url');
 
         $validator
-            ->requirePresence('img', 'create')
-            ->notEmpty('img');
-
-        $validator
             ->allowEmpty('content');
 
         return $validator;
