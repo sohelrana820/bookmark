@@ -60,10 +60,18 @@
                             </a>
                         </div>
                         <div>
-                            <strong>Category:</strong> <label class="label label-info">MySQL</label>, <label class="label label-info">MySQL</label>, <label class="label label-info">Javascript</label>
-                            <br/>
-                            <strong>Board:</strong> <label class="label label-info">General</label>, <label class="label label-info">Personal</label>
-                            <br/>
+                            <div class="boards">
+                                <strong>Board:</strong>
+                                <span ng-repeat="board in resource.boards">
+                                <a href="boards/view/{{board.uuid}}">{{board.name}}</a>
+                                </span>
+                            </div>
+                            <div class="categories">
+                                <strong>Category:</strong>
+                                <label class="label label-info" ng-repeat="category in resource.categories">
+                                    {{category.name}}
+                                </label>
+                            </div>
                             <a href="{{resource.url}}" target="_blank">{{resource.url | characters:45}}</a>
                         </div>
                     </div>

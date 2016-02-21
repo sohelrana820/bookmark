@@ -1,0 +1,16 @@
+.boards span{
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-right: 10px;
+}
+.boards span:after{
+    content: ',';
+}
+
+.boards span:last-child:after{
+    content: '';
+}
+
+.categories label{
+    margin-right: 10px;
+}

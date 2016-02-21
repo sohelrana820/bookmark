@@ -236,7 +236,10 @@ class ResourcesController extends AppController
                 'order' => $sortBy. ' '.$order,
                 'limit' => $limit,
                 'page' => $page,
-                'contain' => ['Categories', 'Boards']
+                'contain' => [
+                    'Categories',
+                    'Boards'
+                ]
             ]
         );
         $count = $this->Resources->find('all',
