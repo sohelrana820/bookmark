@@ -36,8 +36,8 @@ body {
 .panel:hover .delete-icons{
     display: inline;
     position: absolute;
-    bottom: 25px;
-    right: 25px;
+    bottom: 20px;
+    right: 20px;
 }
 
 .per-page-show{
